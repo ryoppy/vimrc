@@ -1,7 +1,58 @@
+# Singleton
+snippet sn_singleton
+	/**
+	 * ${2}
+	 * Singleton Class.
+	 * 
+	 * @class ${1:class_name}
+	 */
+	var $1 = (function() {
+		
+		var _fromGetInstance = false;
+		var _instance;
+		
+		function _construct() {
+		    if (_fromGetInstance !== true) {
+		        throw new Error("must use the getInstance.");
+		    }
+		    _fromGetInstance = false;
+		}
+		
+		/**
+	     * @method getInstance
+	     * @return {Object}
+	     */
+	    _construct.getInstance = function() {
+		    if (_instance) {
+		        return _instance;
+		    }
+		    _fromGetInstance = true;
+		    _instance = new this();
+			_instance.init();
+			return _instance.
+		}
+		return _construct;
+	})();
+	
+	$1.prototype = {
+		
+		/**
+		 * This methoid is called once. 
+		 * 
+		 * @method init
+		 */
+		init : function() {
+			${3}
+		}
+	}
+
+	var ins = $1.getInstance();
+
+
 # Comment
 snippet comm
 	/**
-	 * 
+	 * ${1}
 	 * 
 	 */
 # Self
