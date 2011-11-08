@@ -101,7 +101,7 @@ highlight zenkakuda ctermbg=7
 match zenkakuda /　/
 
 "バックスペースでindentを無視 & 改行を越えてバックスペースを許可
-"set backspace=indent,eol
+set backspace=indent,eol,start
 
 "入力補完時に、辞書ファイルも読み込む
 set complete=.,w,b,u,t,i,k
