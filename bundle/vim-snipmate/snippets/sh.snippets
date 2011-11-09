@@ -1,5 +1,30 @@
-#sn_yn
-snippet sn_yn
+#sn_throw
+snippet sn_throw
+	Utils_ThrowException "${1}"
+#sb_func
+snippet sn_func
+	##
+	# ${2}
+	# 
+	# @method ${1:funcName}
+	##
+	function $1()
+	{
+		${3}
+	}
+#sb_check_file_exist
+snippet sn_check_file_exist
+	checkFilePath="${1}"
+	Utils_CheckFileExist ${checkFilePath}
+	if [ $? -eq 1 ]; then
+	    Utils_Echo_Red "File not found. ${checkFilePath}"
+	    exit 1
+	fi
+#sn_check
+snippet sn_check_status
+	Utils_CheckStatus $?
+#sn_yes_no
+snippet sn_yes_no
 	echo "${1:Execute?}. [y/n]"
 	Utils_YesNo
 	if [ $? -eq 1 ]; then
@@ -7,8 +32,8 @@ snippet sn_yn
 	else
 		# no
 	fi
-#sn_in
-snippet sn_in
+#sn_input
+snippet sn_input
 	Utils_Input "{$1}"
 	${2:value}=$result
 #sn_color_red
