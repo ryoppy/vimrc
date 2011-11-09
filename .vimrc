@@ -72,10 +72,6 @@ set showmode
 
 " OSのクリップボードを使用する
 set clipboard+=unnamed
-" ターミナルでマウスを使用できるようにする
-set mouse=a
-set guioptions+=a
-set ttymouse=xterm2
 
 "ヤンクした文字は、システムのクリップボードに入れる"
 set clipboard=unnamed
@@ -153,10 +149,10 @@ set ttyfast
 "###############################
 
 " カーソル行をハイライト
-set cursorline
-:hi clear CursorLine
-:hi CursorLine gui=underline
-highlight CursorLine ctermbg=grey
+"set cursorline
+":hi clear CursorLine
+":hi CursorLine gui=underline
+"highlight CursorLine ctermbg=grey
 
 " カレントウィンドウにのみ罫線を引く
 augroup cch

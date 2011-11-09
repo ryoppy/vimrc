@@ -1,3 +1,52 @@
+#sn_execute?
+snippet sn_execute?
+	# Execute?
+	echo "Execute? [y/n]"
+	Utils_YesNo
+	if [ $? -eq 1 ]; then
+		exit 0
+	fi
+	
+	${1}
+#sn_no_root_user
+snippet sn_no_root_user
+	# No root user.
+	if [ "$USER" = "root" ]; then
+		Utils_ThrowException "No root user."
+	fi
+	
+	${1}
+#sn_skeleton
+snippet sn_skeleton
+	#!/bin/bash
+
+	###
+	###| ${2}
+	### 
+	### @created   `system("date +%Y-%m-%d")`
+	### @copyright Copyright (c) ryo hongo All Rights Reserved.
+	###
+	
+	
+	### Prepare.
+	# Include Utility. You can use the snippet. Input "sn_".
+	. ~/scripts/utils.sh
+	
+	# Show description of this. (###|)
+	Utils_Description ${1}
+	
+	# Execute?
+	echo "Execute?. [y/n]"
+	Utils_YesNo
+	if [ $? -eq 1 ]; then
+	    exit 0
+	fi
+	
+	
+	### Execute.
+	${3}
+	
+	
 #sn_throw
 snippet sn_throw
 	Utils_ThrowException "${1}"
@@ -27,10 +76,8 @@ snippet sn_check_status
 snippet sn_yes_no
 	echo "${1:Execute?}. [y/n]"
 	Utils_YesNo
-	if [ $? -eq 1 ]; then
-		# yes
-	else
-		# no
+	if [ $? -eq ${2:0=true} ]; then
+		${3}
 	fi
 #sn_input
 snippet sn_input
