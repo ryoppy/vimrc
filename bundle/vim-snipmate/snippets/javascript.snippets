@@ -29,7 +29,7 @@ snippet sn_singleton
 		    _fromGetInstance = true;
 		    _instance = new this();
 			_instance.init();
-			return _instance.
+			return _instance
 		}
 		return _construct;
 	})();
@@ -48,7 +48,9 @@ snippet sn_singleton
 
 	var ins = $1.getInstance();
 
-
+# Debug
+snippet d
+	console.debug(${1});
 # Comment
 snippet comm
 	/**
