@@ -1,12 +1,28 @@
-"--------------------------------------------------------------------
-" Plugins
-"--------------------------------------------------------------------
 
-" *** pathogen
+"--------------------------------------------------------------------
+" vim-pathogen
+"--------------------------------------------------------------------
 call pathogen#infect()
 
-" *** neocomplcache
+
+"---------------------------------------------------------------------
+" vim-neocomplcache
+"---------------------------------------------------------------------
+" enable
 let g:neocomplcache_enable_at_startup = 1
+" smarrt case有効化。 大文字が入力されるまで大文字小文字の区別を無視する
+let g:neocomplcache_enable_smart_case = 1
+" camle caseを有効化。大文字を区切りとしたワイルドカードのように振る舞う
+let g:neocomplcache_enable_camel_case_completion = 1
+" _(アンダーバー)区切りの補完を有効化
+let g:neocomplcache_enable_underbar_completion = 1
+" シンタックスをキャッシュするときの最小文字長を3に
+let g:neocomplcache_min_syntax_length = 3
+" neocomplcacheを自動的にロックするバッファ名のパターン
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+" 補完候補の一番先頭を選択状態にする(AutoComplPopと似た動作)
+let g:neocomplcache_enable_auto_select = 1
+
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
@@ -16,8 +32,10 @@ autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType ruby set omnifunc=rubycomplete#Complete
 
-" *** Auto Reload for mac
-"change this variables
+
+"---------------------------------------------------------------------
+" vim-browsereload-mac
+"---------------------------------------------------------------------
 let g:returnApp = "Terminal"
 let g:returnAppFlag = 1
 
@@ -42,11 +60,56 @@ command! -bar ArStop silent AllBrowserReloadStop
 
 
 "---------------------------------------------------------------------
-" Autocomplete
+" vim-js-jquery
 "---------------------------------------------------------------------
-
-" jQuery
 au BufRead,BufNewFile *.js set ft=javascript syntax=jquery
+
+
+
+"-------------------------------------------------------------------------------
+" vim-unite
+"-------------------------------------------------------------------------------
+
+""" unite.vim
+" 入力モードで開始する
+let g:unite_enable_start_insert=1
+" バッファ一覧
+nnoremap <silent> <leader>ub :<C-u>Unite buffer<CR>
+" ファイル一覧
+nnoremap <silent> <leader>uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+" レジスタ一覧
+nnoremap <silent> <leader>ur :<C-u>Unite -buffer-name=register register<CR>
+" 最近使用したファ ルのヒストリー
+nnoremap <silent> <leader>uh :<C-u>Unite file_mru<CR>
+" 常用セット
+nnoremap <silent> <leader>uu :<C-u>Unite buffer file_mru<CR>
+" 全部乗せ
+nnoremap <silent> <leader>ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+
+" ウィンドウを分割して開く
+au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+" ウィンドウを縦に分割して開く
+au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+" ESCキーを2回押すと終了する
+au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
+au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
+
+" 様々なショートカット
+call unite#set_substitute_pattern('file', '\$\w\+', '\=eval(submatch(0))', 200)
+call unite#set_substitute_pattern('file', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/"', 2)
+call unite#set_substitute_pattern('file', '^@', '\=getcwd()."/*"', 1)
+call unite#set_substitute_pattern('file', '^;r', '\=$VIMRUNTIME."/"')
+call unite#set_substitute_pattern('file', '^\~', escape($HOME, '\'), -2)
+call unite#set_substitute_pattern('file', '\\\@<! ', '\\ ', -20)
+call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
+if has('win32') || has('win64')
+ call unite#set_substitute_pattern('file', '^;p', 'C:/Program Files/')
+ call unite#set_substitute_pattern('file', '^;v', '~/vimfiles/')
+else
+ call unite#set_substitute_pattern('file', '^;v', '~/.vim/')
+endif
 
 
 "---------------------------------------------------------------------
@@ -227,21 +290,4 @@ imap <C-h> <Left>
 imap <C-l> <Right>
 
 
-"------------------------------------
-" neocomplecache.vim
-"------------------------------------
-" NeoComplCacheを有効にする
-let g:neocomplcache_enable_at_startup = 1
-" smarrt case有効化。 大文字が入力されるまで大文字小文字の区別を無視する
-let g:neocomplcache_enable_smart_case = 1
-" camle caseを有効化。大文字を区切りとしたワイルドカードのように振る舞う
-let g:neocomplcache_enable_camel_case_completion = 1
-" _(アンダーバー)区切りの補完を有効化
-let g:neocomplcache_enable_underbar_completion = 1
-" シンタックスをキャッシュするときの最小文字長を3に
-let g:neocomplcache_min_syntax_length = 3
-" neocomplcacheを自動的にロックするバッファ名のパターン
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-" 補完候補の一番先頭を選択状態にする(AutoComplPopと似た動作)
-let g:neocomplcache_enable_auto_select = 1
 
