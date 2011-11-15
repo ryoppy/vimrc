@@ -1,8 +1,7 @@
 #sn_execute?
 snippet sn_execute?
 	# Execute?
-	echo "Execute? [y/n]"
-	Utils_YesNo
+	Utils_YesNo "Execute?"
 	if [ $? -eq 1 ]; then
 		exit 0
 	fi
@@ -36,8 +35,7 @@ snippet sn_skeleton
 	Utils_Description ${1}
 	
 	# Execute?
-	echo "Execute?. [y/n]"
-	Utils_YesNo
+	Utils_YesNo "Execute?"
 	if [ $? -eq 1 ]; then
 	    exit 0
 	fi
@@ -74,8 +72,7 @@ snippet sn_check_status
 	Utils_CheckStatus $?
 #sn_yes_no
 snippet sn_yes_no
-	echo "${1:Execute?}. [y/n]"
-	Utils_YesNo
+	Utils_YesNo "${1:Execute?}."
 	if [ $? -eq ${2:0=true} ]; then
 		${3}
 	fi
