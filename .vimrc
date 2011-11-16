@@ -154,6 +154,9 @@ set helpfile=$VIMRUNTIME/doc/help.txt
 " ファイルタイプ判定をon
 filetype plugin indent on
 
+" \pで貼付け
+inoremap <Leader>p <ESC>pi
+
 
 "-------------------------------------------------------------------------------
 " ステータスライン StatusLine
