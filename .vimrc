@@ -269,6 +269,9 @@ cmap <c-x> <c-r>=expand('%:p:h')<cr>/
 "ファイル名(フルパス)を出力
 cmap <c-z> <c-r>=expand('%:p:r')<cr>
 
+" IMEに応じて色を変える
+hi CursorIM  guifg=black  guibg=red  gui=NONE  ctermfg=black  ctermbg=white  cterm=reverse
+
 
 "-------------------------------------------------------------------------------
 " 移動設定 Move
@@ -289,5 +292,21 @@ imap <C-k> <Up>
 imap <C-h> <Left>
 imap <C-l> <Right>
 
+" 自動で右に一つ戻る
+imap {} {}<Left>
+imap [] []<Left>
+imap () ()<Left>
+imap “” “”<Left>
+imap ” ”<Left>
+imap <> <><Left>
+imap “ “<Left>
+
+" 行末の不要な空白を削除
+function! RTrim()
+    let s:cursor = getpos(".")
+    %s/\s\+$//e
+    call setpos(".", s:cursor)
+endfunction
+autocmd BufWritePre *.php,*.rb,*.js,*.bat call RTrim()
 
 
