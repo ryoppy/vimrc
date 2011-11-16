@@ -299,10 +299,10 @@ imap <C-l> <Right>
 imap {} {}<Left>
 imap [] []<Left>
 imap () ()<Left>
-imap “” “”<Left>
-imap ” ”<Left>
+imap "" ""<Left>
+imap " "<Left>
 imap <> <><Left>
-imap “ “<Left>
+imap " "<Left>
 
 " 行末の不要な空白を削除
 function! RTrim()
