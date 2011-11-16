@@ -54,8 +54,9 @@ snippet d
 # Comment
 snippet comm
 	/**
-	 * ${1}
+	 * ${2}
 	 * 
+	 * @method ${1}
 	 */
 # Self
 snippet self
@@ -84,8 +85,13 @@ snippet fun
 	}
 # FunctionObject
 snippet funco
+	/**
+	 * ${3}
+	 * 
+	 * @method $1
+	 */
 	${1:name} : function(${2:argument}) {
-		${3}
+		${4}
 	},
 # Anonymous Function
 snippet f

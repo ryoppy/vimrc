@@ -296,13 +296,13 @@ imap <C-h> <Left>
 imap <C-l> <Right>
 
 " 自動で右に一つ戻る
-imap {} {}<Left>
-imap [] []<Left>
-imap () ()<Left>
-imap "" ""<Left>
-imap " "<Left>
-imap <> <><Left>
-imap " "<Left>
+"imap {} {}<Left>
+"imap [] []<Left>
+"imap () ()<Left>
+"imap "" ""<Left>
+"imap " "<Left>
+"imap <> <><Left>
+"imap " "<Left>
 
 " 行末の不要な空白を削除
 function! RTrim()
