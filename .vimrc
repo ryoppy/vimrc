@@ -1,3 +1,27 @@
+"--------------------------------------------------------------------
+" 覚えるショートカット
+"--------------------------------------------------------------------
+"#|----- common -----
+"#|<F5>   ペーストモードon/off
+"#|:Ev    vimrcを編集
+"#|:Rv    vimrcを反映
+"#|
+"#|----- mark -----
+"#|ma     aマークを付ける
+"#|`a     aマークに移動
+"#|:marks 登録したマーク一覧
+"#|
+"#|----- vim-zencoding -----
+"#|div[Ctrl+y,]     <div></div>
+"#|div選択[Ctrl+y,] <div></div>
+
+
+
+"--------------------------------------------------------------------
+" vim-zencoding
+"--------------------------------------------------------------------
+let g:user_zen_settings = { 'indentation':'    ' }
+
 
 "--------------------------------------------------------------------
 " vim-pathogen
@@ -142,8 +166,9 @@ set clipboard=unnamed
 imap <C-K>  <ESC>"*pa
 
 " Ev/Rvでvimrcの編集と反映
-command! Ev edit $MYVIMRC
-command! Rv source $MYVIMRC
+command! Ev edit $MYVIMRC   
+command! Rv source $MYVIMRC 
+
 
 " pathogenでftdetectなどをloadさせるために一度ファイルタイプ判定をoff
 filetype off
@@ -264,9 +289,6 @@ set complete=.,w,b,u,t,i,k
 "共有のクリップボードを使用する
 set clipboard=unnamed
 
-"ペーストモードのON/OFF
-set pastetoggle=<C-p>
-
 "カレントディレクトリを出力
 cmap <c-x> <c-r>=expand('%:p:h')<cr>/
 "ファイル名(フルパス)を出力
@@ -274,6 +296,9 @@ cmap <c-z> <c-r>=expand('%:p:r')<cr>
 
 " IMEに応じて色を変える
 hi CursorIM  guifg=black  guibg=red  gui=NONE  ctermfg=black  ctermbg=white  cterm=reverse
+
+"ペーストモードのON/OFF
+set pastetoggle=<F5> 
 
 
 "-------------------------------------------------------------------------------

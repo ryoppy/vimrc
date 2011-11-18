@@ -1,3 +1,11 @@
+#sn_hr
+snippet sn_hr
+	Utils_Hr #------------------------------------
+#sn_get_random
+snippet sn_get_random
+	# Get random char. (args: 0=length, 1=special)
+	Utils_GetRandom
+	random=$result
 #sn_execute?
 snippet sn_execute?
 	# Execute?
@@ -70,16 +78,23 @@ snippet sn_check_file_exist
 #sn_check
 snippet sn_check_status
 	Utils_CheckStatus $?
+#sn_yes_only
+snippet sn_yes_only
+	Utils_YesOnly "${1:Are you ready?}."
 #sn_yes_no
 snippet sn_yes_no
 	Utils_YesNo "${1:Execute?}."
-	if [ $? -eq ${2:0=true} ]; then
+	if [ $? -eq 0 ]; then
+		# yes
 		${3}
 	fi
 #sn_input
 snippet sn_input
 	Utils_Input "{$1}"
 	${2:value}=$result
+#sn_echo
+snippet echo
+	Utils_Echo "${1}"
 #sn_color_red
 snippet sn_color_red
 	Utils_Echo_Red "${1}"
