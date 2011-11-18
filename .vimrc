@@ -265,7 +265,7 @@ set complete=.,w,b,u,t,i,k
 set clipboard=unnamed
 
 "ペーストモードのON/OFF
-set pastetoggle=<F12>
+set pastetoggle=<C-p>
 
 "カレントディレクトリを出力
 cmap <c-x> <c-r>=expand('%:p:h')<cr>/
