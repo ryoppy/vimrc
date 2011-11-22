@@ -5,6 +5,8 @@
 "#|<F5>   ペーストモードon/off
 "#|:Ev    vimrcを編集
 "#|:Rv    vimrcを反映
+"#|<F1>   一つ右のtabへ
+"#|<F2>   一つ左のtabへ
 "#|
 "#|----- mark -----
 "#|ma     aマークを付ける
@@ -162,13 +164,10 @@ set clipboard+=unnamed
 
 "ヤンクした文字は、システムのクリップボードに入れる"
 set clipboard=unnamed
-" 挿入モードでCtrl+kを押すとクリップボードの内容を貼り付けられるようにする "
-imap <C-K>  <ESC>"*pa
 
 " Ev/Rvでvimrcの編集と反映
 command! Ev edit $MYVIMRC   
 command! Rv source $MYVIMRC 
-
 
 " pathogenでftdetectなどをloadさせるために一度ファイルタイプ判定をoff
 filetype off
@@ -181,6 +180,8 @@ filetype plugin indent on
 
 " \pで貼付け
 inoremap <Leader>p <ESC>pi
+" 挿入モードでCtrl+kを押すとクリップボードの内容を貼り付けられるようにする "
+imap <C-K>  <ESC>"*pa
 
 
 "-------------------------------------------------------------------------------
@@ -320,15 +321,6 @@ imap <C-k> <Up>
 imap <C-h> <Left>
 imap <C-l> <Right>
 
-" 自動で右に一つ戻る
-"imap {} {}<Left>
-"imap [] []<Left>
-"imap () ()<Left>
-"imap "" ""<Left>
-"imap " "<Left>
-"imap <> <><Left>
-"imap " "<Left>
-
 " 行末の不要な空白を削除
 function! RTrim()
     let s:cursor = getpos(".")
@@ -336,5 +328,24 @@ function! RTrim()
     call setpos(".", s:cursor)
 endfunction
 autocmd BufWritePre *.php,*.rb,*.js,*.bat call RTrim()
+
+    
+"-------------------------------------------------------------------------------
+" タブ設定
+"-------------------------------------------------------------------------------
+" ショートカット
+nnoremap <C-t> :tabedit<Return>     "ctrl+tで新規タブ
+nnoremap <C-w> :tabclose<Return>    "ctrl+wでタブを閉じる
+nnoremap <F2>  :tabn<Return>        "ctrl+tabで次のタブへ
+nnoremap <F1>  :tabprevious<Return> "ctrl+shift+tabで前のタブへ
+
+set showtabline=2
+
+" タブ色設定
+hi TabLine     term=reverse cterm=reverse ctermfg=white ctermbg=black
+hi TabLineSel  term=bold cterm=bold,underline ctermfg=5
+hi TabLineFill term=reverse cterm=reverse ctermfg=white ctermbg=black
+
+
 
 

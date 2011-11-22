@@ -1,3 +1,4 @@
+################# スニペット #################
 # Singleton
 snippet sn_singleton
 	/**
@@ -29,7 +30,7 @@ snippet sn_singleton
 		    _fromGetInstance = true;
 		    _instance = new this();
 			_instance.init();
-			return _instance
+			return _instance;
 		}
 		return _construct;
 	})();
@@ -41,16 +42,31 @@ snippet sn_singleton
 		 * 
 		 * @method init
 		 */
-		init : function() {
+		init: function() {
 			${3}
 		}
 	}
 
 	var ins = $1.getInstance();
-
-# Debug
-snippet d
-	console.debug(${1});
+# Ajax
+snippet sn_ajax
+	$.ajax({
+		type: "${1:GET}"
+		url: "${2:/}",
+		dataType: "${3:json}",
+		success: function(result) {
+			${4}
+		}
+	}};
+# setTimeout
+snippet sn_imeout
+	var timerIdd = setTimeout(function() {
+		${3}
+	}, ${1:1000});
+# getElementById
+snippet sn_elem
+	var elem = document.getElementById("${1}");
+################# ショートカットスニペット #################
 # Comment
 snippet comm
 	/**
@@ -58,78 +74,69 @@ snippet comm
 	 * 
 	 * @method ${1}
 	 */
+# Debug
+snippet d
+	console.debug(${1});
 # Self
 snippet self
 	var self = this;
-# Ajax
-snippet ajax
-	$.ajax({
-		type : "${1:GET}"
-		url : "${2:/}",
-		dataType : "${3:json}",
-		success : function() {
-			${4}
-		}
-	}};
-
-# Prototype
-snippet proto
-	${1:class_name}.prototype.${2:method_name} =
-	function(${3:first_argument}) {
-		${4:// body...}
-	};
 # Function
-snippet fun
-	function ${1:function_name} (${2:argument}) {
-		${3:// body...}
-	}
-# FunctionObject
-snippet funco
+snippet func
 	/**
 	 * ${3}
 	 * 
 	 * @method $1
 	 */
-	${1:name} : function(${2:argument}) {
+	function ${1:name}(${2:argument}) {
+		${3}
+	}
+# FunctionObject
+snippet funco
+	/**
+	 * ${4}
+	 * 
+	 * @method $1
+	 */
+	${1:name}: function(${2:argument}) {
+		${5}
+	}${3:,}
+# FunctionVar
+snippet funcv
+	/**
+	 * ${3}
+	 * 
+	 * @method $1
+	 */
+	var ${1:name} = function(${2:argument}) {
 		${4}
-	},
-# Anonymous Function
-snippet f
-	function() {
+	}
+# FunctionAnonymous 
+snippet funca
+	(function() {
+		${1}
+	})();
 # if
 snippet if
-	if (${1:true}) {${2}}
+	if (${1}) {
+		${2}
+	}
 # if ... else
-snippet ife
-	if (${1:true}) {${2}}
-	else{${3}}
-# tertiary conditional
-snippet t
-	${1:/* condition */} ? ${2:a} : ${3:b}
-# switch
 snippet switch
 	switch(${1:expression}) {
-		case '${3:case}':
-			${4:// code}
+		case "${3:case}":
+			${4}
 			break;
-		${5}
 		default:
 			${2:// code}
 	}
 # case
 snippet case
-	case '${1:case}':
-		${2:// code}
+	case "${1:case}":
+		${2}
 		break;
-	${3}
 # for (...) {...}
 snippet for
 	for (var ${2:i} = 0; $2 < ${1:Things}.length; $2${3:++}) {
-		${4:$1[$2]}
-	};
-# for (...) {...} (Improved Native For-Loop)
-snippet forr
-	for (var ${2:i} = ${1:Things}.length - 1; $2 >= 0; $2${3:--}) {
 		${4:$1[$2]}
 	};
 # forin
@@ -147,17 +154,3 @@ snippet do
 	do {
 		${2:/* code */}
 	} while (${1:/* condition */});
-# Object Method
-snippet :f
-	${1:method_name}: function(${2:attribute}) {
-		${4}
-	}${3:,}
-# setTimeout function
-snippet timeout
-	setTimeout(function() {${3}}${2}, ${1:10};
-# Get Elements
-snippet get
-	getElementsBy${1:TagName}('${2}')${3}
-# Get Element
-snippet gett
-	getElementBy${1:Id}('${2}')${3}
