@@ -1,3 +1,11 @@
+################# スニペット #################
+#sn_grep
+snippet sn_grep
+	Utils_Grep "${1:string}" "${2:filepath}"
+	if [ $? -eq 0 ]; then
+	    # hit
+	    ${3}
+	fi
 #sn_hr
 snippet sn_hr
 	Utils_Hr #------------------------------------
@@ -80,10 +88,10 @@ snippet sn_check_status
 	Utils_CheckStatus $?
 #sn_yes_only
 snippet sn_yes_only
-	Utils_YesOnly "${1:Are you ready?}."
+	Utils_YesOnly "${1:Are you ready?}"
 #sn_yes_no
 snippet sn_yes_no
-	Utils_YesNo "${1:Execute?}."
+	Utils_YesNo "${1:Execute?}"
 	if [ $? -eq 0 ]; then
 		# yes
 		${3}
@@ -104,6 +112,7 @@ snippet sn_color_blue
 #sn_color_green
 snippet sn_color_green
 	Utils_Echo_Green "${1}"
+################# ショートカットスニペット #################
 #comm
 snippet comm
 	##
@@ -114,7 +123,7 @@ snippet comm
 snippet #!
 	#!/bin/bash	
 snippet if
-	if [[ ${1:condition} ]]; then
+	if [ ${1:condition} ]; then
 		${2:#statements}
 	fi
 snippet elif
@@ -137,3 +146,13 @@ snippet case
 		${2:pattern})
 			${3};;
 	esac
+snippet func
+	##
+	# ${2}
+	# 
+	# @method $1
+	##
+	function ${1:name}()
+	{
+		${3}
+	}

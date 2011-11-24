@@ -1,5 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_cnt =9
 let g:netrw_dirhist_1='/home/ryo/.vim/bundle/vim-js-jquery'
 let g:netrw_dirhist_2='/home/ryo/scripts/conf/apache'
 let g:netrw_dirhist_3='/home/ryo/.vim/bundle/vim-browsereload-mac'
@@ -8,3 +8,4 @@ let g:netrw_dirhist_5='/home/ryo'
 let g:netrw_dirhist_6='/home/ryo/Dropbox'
 let g:netrw_dirhist_7='/Users/ryohongo/Documents/workspace-sts-2.6.1.RELEASE/DennooApp/js/calendar'
 let g:netrw_dirhist_8='/Users/ryohongo/Documents/workspace-sts-2.6.1.RELEASE/DennooApp/js'
+let g:netrw_dirhist_9='/var/www/vhosts/wordra.com'

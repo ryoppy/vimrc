@@ -347,5 +347,19 @@ hi TabLineSel  term=bold cterm=bold,underline ctermfg=5
 hi TabLineFill term=reverse cterm=reverse ctermfg=white ctermbg=black
 
 
+"-------------------------------------------------------------------------------
+" fold設定
+"-------------------------------------------------------------------------------
+" javascript
+let javaScript_fold=1
+
+" php
+"function PHPLint()
+  "let result = system( &ft . ' -l ' . bufname(""))
+  "echo result
+"endfunction
+"autocmd BufWritePre *.php call PHPLint()
+
+let g:cssColorVimDoNotMessMyUpdatetime = 1
 
 
