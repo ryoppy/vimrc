@@ -30,9 +30,28 @@ snippet sn_h_skeleton_html5
 		<head>
 			<title>${1:title}</title>
 			<meta charset="UTF-8">
+			<meta name="keywords" content="${2}">  
+			<meta name="description" content="${3}>
 			<!--[if IE]>
 			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 			<![endif]-->
+
+			<!-- view port -->
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+			<!-- Le fav and touch icons -->
+			<link rel="icon" type="image/png" href="/ico/favicon.png">
+			<link rel="shortcut icon"    type="image/x-icon" href="/ico/favicon.ico">
+			<link rel="apple-touch-icon" href="/ico/favicon-57x57.png">
+			<link rel="apple-touch-icon" sizes="72x72" href="/ico/favicon-72x72.png">
+			<link rel="apple-touch-icon" sizes="114x114" href="/ico/favicon-114x114.png">
+
+			<!-- Open Graph Protocol -->
+			<meta property="og:title"     content="" />
+			<meta property="og:type"      content="" />
+			<meta property="og:url"       content="" />
+			<meta property="og:image"     content="" />
+			<meta property="og:site_name" content="" />
 		</head>
 	<body>
 	${2}
@@ -47,19 +66,8 @@ snippet sn_p_js
 	${2}
 ################# bootstrapスニペット#################
 snippet sn_b_skeleton
-	<!DOCTYPE html>
-	<html>
-		<head>
-			<title>${1:title}</title>
-			<meta charset="UTF-8">
-			<!--[if IE]>
-			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-			<![endif]-->
-			
-			<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css" />
-		</head>
-	<body>
-	
+	<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css" />
+
 	<div class="container">
 	    <div class="row">
 	        <div class="span6">
@@ -70,9 +78,6 @@ snippet sn_b_skeleton
 	        </div>
 	    </div>
 	</div>
-	
-	</body>
-	</html>
 ################# スニペット#################
 
 
