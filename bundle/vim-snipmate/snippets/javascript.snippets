@@ -66,6 +66,10 @@ snippet sn_imeout
 # getElementById
 snippet sn_elem
 	var elem = document.getElementById("${1}");
+snippet sn_typeof
+	if (typeof ${1:name} === "undefined") {
+		var $1 = {};
+	}
 ################# ショートカットスニペット #################
 # Comment
 snippet comm
