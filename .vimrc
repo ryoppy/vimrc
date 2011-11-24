@@ -334,18 +334,24 @@ autocmd BufWritePre *.php,*.rb,*.js,*.bat call RTrim()
 " タブ設定
 "-------------------------------------------------------------------------------
 " ショートカット
-nnoremap <C-t> :tabedit<Return>     "ctrl+tで新規タブ
-nnoremap <C-w> :tabclose<Return>    "ctrl+wでタブを閉じる
-nnoremap <F2>  :tabn<Return>        "ctrl+tabで次のタブへ
-nnoremap <F1>  :tabprevious<Return> "ctrl+shift+tabで前のタブへ
+nnoremap <C-t> :tabedit<Return>
+nnoremap <C-w> :tabclose<Return>
+nnoremap <F2>  :tabn<Return>
+nnoremap <F1>  :tabprevious<Return>
 
-set showtabline=2
+set showtabline=4
 
 " タブ色設定
 hi TabLine     term=reverse cterm=reverse ctermfg=white ctermbg=black
-hi TabLineSel  term=bold cterm=bold,underline ctermfg=5
+hi TabLineSel  term=bold cterm=bold ctermfg=5
 hi TabLineFill term=reverse cterm=reverse ctermfg=white ctermbg=black
 
 
+" func, forなど{}を一気にVisual選択
+nnoremap vb /{<CR>%v%0
 
+let php_folding=1
+au Syntax php set fdm=syntax
+
+let javaScript_fold=1
 
