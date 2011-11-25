@@ -48,16 +48,6 @@ snippet sn_singleton
 	}
 
 	var ins = $1.getInstance();
-# Ajax
-snippet sn_ajax
-	$.ajax({
-		type: "${1:GET}"
-		url: "${2:/}",
-		dataType: "${3:json}",
-		success: function(result) {
-			${4}
-		}
-	}};
 # setTimeout
 snippet sn_imeout
 	var timerId = setTimeout(function() {
@@ -66,10 +56,92 @@ snippet sn_imeout
 # getElementById
 snippet sn_elem
 	var elem = document.getElementById("${1}");
+# typeof
 snippet sn_typeof
 	if (typeof ${1:name} === "undefined") {
 		var $1 = {};
 	}
+# class
+snippet sn_skeleton
+	/**
+	 * @namespace $1
+	 */
+	if (typeof $1 === "undefined") {
+		var ${1:namespace} = function() {};
+	}
+	
+	/**
+	 * ${2}
+	 * 
+	 * @class $1.${2:class}
+	 */
+	$1.$2 = function() {
+		this.init();
+	}
+	
+	$1.$2.prototype = {
+		/**
+		 * Initialize
+		 * 
+		 * @constructor
+		 * @method init
+		 */
+		init: function() {
+			${3}
+		}
+	}
+# extend
+snippet sn_extend
+	/**
+	 * Extend object.
+	 * 
+	 * @method extend
+	 * @param  {Object}  destination
+	 * @param  {Object}  source
+	 * @param  {Boolean} overwrite
+	 * @return {Object}
+	 */
+	${1:class}.extend = function(d, s, o) {
+		if (!d || !s) return d;
+		for (var field in s) {
+			if (d[field] === s[field]) continue;
+			if (o === false && d.hasOwnProperty(field)) continue;
+			d[field] = s[field];
+		}
+		return d;
+	}
+################# ショートカットスニペット #################
+# ClickEvent
+snippet click
+	click(function() {
+		${1}
+	});
+# EachRoop
+snippet each
+	each(function() {
+		${1}
+	});
+# Elem
+snippet e
+	var $elem = $("#${1}");
+# Ajax
+snippet ajax
+	$.ajax({
+		type: "${1:GET}"
+		url: "${2:/}",
+		dataType: "${3:json}",
+		success: function(result) {
+			${4}
+		}
+	}};
+# Animation
+snippet anim
+	$("#${1}").animate({
+		opacity: 0,
+	}, 2000, function() {
+		// complete
+		${2}
+	});
 ################# ショートカットスニペット #################
 # Comment
 snippet comm
@@ -81,6 +153,9 @@ snippet comm
 # Debug
 snippet d
 	console.debug(${1});
+# function
+snippet f
+	function(${1}) {
 # Self
 snippet self
 	var self = this;
