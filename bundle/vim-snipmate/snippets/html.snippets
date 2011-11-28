@@ -57,6 +57,63 @@ snippet sn_h_skeleton_html5
 	${2}
 	</body>
 	</html>
+# social bottom
+snippet s_social_button
+	<!-- ================================================================================
+	Soclal Botton
+	http://itra.jp/jquery_socialbutton_plugin/
+	-->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/js/library/jquery.socialbutton-1.8.1.js" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		$(function() {
+			$('#evernote_social_btn').socialbutton('evernote', {
+				button: 'article-clipper-vert',
+				styling: 'full'
+			});
+
+			$('#hatena_social_btn').socialbutton('hatena', {
+				button: 'vertical'
+			});
+
+			$('#twitter_social_btn').socialbutton('twitter', {
+				button: 'vertical',
+				text: '${1}',
+				via: '${2}'
+			});
+
+			$('#google_plusone_social_btn').socialbutton('google_plusone', {
+				lang: 'ja',
+				size: 'tall'
+			});
+
+			$('#facebook_like_social_btn').socialbutton('facebook_like', {
+				button: 'box_count'
+			});
+
+			$('#facebook_share_social_btn').socialbutton('facebook_share', {
+				button: 'box_count'
+			});
+		});
+	</script>
+
+	<style type="text/css" media="screen">
+		.social_btn div{
+			float: left;
+			margin-right:15px;
+		}
+	</style>
+
+	<div class="social_btn">
+		<div id="evernote_social_btn"></div>
+		<div id="hatena_social_btn"></div>
+		<div id="twitter_social_btn"></div>
+		<div id="google_plusone_social_btn"></div>
+		<div id="facebook_like_social_btn"></div>
+		<div id="facebook_share_social_btn"></div>
+	</div>
+	<!-- END Soclal Botton ============================================================== -->
+
 ################# phtmlスニペット#################
 snippet sn_p_css
 	<link rel="stylesheet" href="<?php echo $this->addFileHash('${1}') ?>" />
