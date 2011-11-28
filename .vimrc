@@ -19,6 +19,12 @@
 
 
 "--------------------------------------------------------------------
+" vim-template
+"--------------------------------------------------------------------
+autocmd User plugin-template-loaded silent! :%!php -n
+
+
+"--------------------------------------------------------------------
 " vim-css-color
 "--------------------------------------------------------------------
 let g:cssColorVimDoNotMessMyUpdatetime = 1
@@ -358,12 +364,6 @@ hi TabLineFill term=reverse cterm=reverse ctermfg=white ctermbg=black
 " javascript
 let javaScript_fold=1
 
-" php
-"function PHPLint()
-  "let result = system( &ft . ' -l ' . bufname(""))
-  "echo result
-"endfunction
-"autocmd BufWritePre *.php call PHPLint()
 
 " func, forなど{}を一気にVisual選択
 nnoremap vb /{<CR>%v%0
@@ -373,3 +373,16 @@ au Syntax php set fdm=syntax
 
 let javaScript_fold=1
 
+"--------------------------------------------------------------------
+" php lint
+"--------------------------------------------------------------------
+"set laststatus=2
+"set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']['.&ft.']'}\ %{b:status}%=%l,%c%V%8P
+"au BufEnter * let b:status = ""
+"au BufWritePost *.php let b:status=substitute(system("php -l -n " . bufname("%")), '\n', " ", "g")[:70]
+
+"function PHPLint()
+  "let result = system( &ft . ' -l -n -d error_reporting=E_ALL ' . bufname(""))
+  "echo result
+"endfunction
+"autocmd BufWritePre *.php call PHPLint()
