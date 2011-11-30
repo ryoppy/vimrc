@@ -381,8 +381,8 @@ let javaScript_fold=1
 "au BufEnter * let b:status = ""
 "au BufWritePost *.php let b:status=substitute(system("php -l -n " . bufname("%")), '\n', " ", "g")[:70]
 
-"function PHPLint()
-  "let result = system( &ft . ' -l -n -d error_reporting=E_ALL ' . bufname(""))
-  "echo result
-"endfunction
-"autocmd BufWritePre *.php call PHPLint()
+function PHPLint()
+  let result = system( &ft . ' -l -n -d error_reporting=E_ALL ' . bufname(""))
+  echo result
+endfunction
+autocmd BufWritePre *.php call PHPLint()

@@ -2,56 +2,58 @@
 # Singleton
 snippet sn_singleton
 	/**
-	 * ${2}
+	 * ${3}
 	 * Singleton Class.
 	 * 
-	 * @class ${1:class_name}
+	 * @namespace ${1:namespace}
+	 * @class ${2:class_name}
 	 */
-	var $1 = (function() {
+	$1.$2 = (function() {
 		
-		var _fromGetInstance = false;
-		var _instance;
+		var _f = false, _ins;
 		
-		function _construct() {
-		    if (_fromGetInstance !== true) {
-		        throw new Error("must use the getInstance.");
-		    }
-		    _fromGetInstance = false;
+		function _c() {
+		    if (_f !== true) throw "must use the getInstance.";
+		    _f = false;
 		}
 		
 		/**
 	     * @method getInstance
 	     * @return {Object}
 	     */
-	    _construct.getInstance = function() {
-		    if (_instance) {
-		        return _instance;
-		    }
-		    _fromGetInstance = true;
-		    _instance = new this();
-			_instance.init();
-			return _instance;
+	    _c.getInstance = function() {
+		    if (_ins) return _ins;
+		    _f = true;
+		    _ins = new this();
+			_ins.init();
+			return _ins;
 		}
-		return _construct;
+		return _c;
 	})();
 	
-	$1.prototype = {
+	$1.$2.prototype = {
 		
 		/**
 		 * This methoid is called once. 
 		 * 
 		 * @method init
+		 * @cor
 		 */
 		init: function() {
-			${3}
+			${4}
 		}
 	}
 
-	var ins = $1.getInstance();
+	var ins = $1.$2.getInstance();
+# setInterval
+snippet sn_interval
+	var timerId = setInterval(function() {
+		${2}
+	}, ${1:1000});
 # setTimeout
-snippet sn_imeout
-	var timerId = setTimeout(function() {
-		${3}
+snippet sn_timeout
+	setTimeout(function() {
+		${2}
 	}, ${1:1000});
 # getElementById
 snippet sn_elem
@@ -61,9 +63,11 @@ snippet sn_typeof
 	if (typeof ${1:name} === "undefined") {
 		var $1 = {};
 	}
-# class
+# skeleton
 snippet sn_skeleton
 	/**
+	 * Project name is $1.
+	 * 
 	 * @namespace $1
 	 */
 	if (typeof $1 === "undefined") {
@@ -71,7 +75,7 @@ snippet sn_skeleton
 	}
 	
 	/**
-	 * ${2}
+	 * This class is ${3}.
 	 * 
 	 * @class $1.${2:class}
 	 */
@@ -87,7 +91,29 @@ snippet sn_skeleton
 		 * @method init
 		 */
 		init: function() {
-			${3}
+			${4}
+		}
+	}
+# class
+snippet sn_class
+	/**
+	 * This class is ${3}.
+	 * 
+	 * @class ${1:namespace}.${2:class}
+	 */
+	$1.$2 = function() {
+		this.init();
+	}
+	
+	$1.$2.prototype = {
+		/**
+		 * Initialize
+		 * 
+		 * @constructor
+		 * @method init
+		 */
+		init: function() {
+			${4}
 		}
 	}
 # extend
@@ -110,7 +136,34 @@ snippet sn_extend
 		}
 		return d;
 	}
-################# ショートカットスニペット #################
+# sn_ready
+snippet sn_ready
+	$(function() {
+		// onReady
+		${1}
+	});
+# sn_ajax
+snippet sn_ajax
+	$.ajax({
+		type: "${1:GET}",
+		url: "${2:/}",
+		dataType: "${3:json}",
+		success: function(result) {
+			${4}
+		}
+	});
+# console.debug
+snippet sn_debug
+	/**
+	 * IEエラー回避
+	 * IEだとconsole系の関数が使えないので空の関数を準備する。
+	 */
+	if (typeof console === "undefined") {
+		var console = {};
+		console.debug = function() {};
+		console.log = function() {};
+	}
+################# jQueryショートカットスニペット #################
 # ClickEvent
 snippet click
 	click(function() {
@@ -124,16 +177,6 @@ snippet each
 # Elem
 snippet e
 	var $elem = $("#${1}");
-# Ajax
-snippet ajax
-	$.ajax({
-		type: "${1:GET}"
-		url: "${2:/}",
-		dataType: "${3:json}",
-		success: function(result) {
-			${4}
-		}
-	}};
 # Animation
 snippet anim
 	$("#${1}").animate({
@@ -142,6 +185,9 @@ snippet anim
 		// complete
 		${2}
 	});
+# $
+snippet $
+	$("${1}")${2};
 ################# ショートカットスニペット #################
 # Comment
 snippet comm
@@ -156,6 +202,8 @@ snippet d
 # function
 snippet f
 	function(${1}) {
+		${2}
+	}${3}
 # Self
 snippet self
 	var self = this;
@@ -169,6 +217,19 @@ snippet func
 	function ${1:name}(${2:argument}) {
 		${3}
 	}
+# Function Closer
+snippet funcc
+	/**
+	 * ${3}
+	 * 
+	 * @method $1
+	 */
+	var ${1:name} = (function() {
+		var self = this;
+		return function(${2:argument}) {
+			${4}
+		};
+	})();
 # FunctionObject
 snippet funco
 	/**
@@ -233,3 +294,54 @@ snippet do
 	do {
 		${2:/* code */}
 	} while (${1:/* condition */});
+# Singleton-Full
+snippet sn_singleton_full
+	/**
+	 * ${3}
+	 * Singleton Class.
+	 * 
+	 * @namespace ${1:namespace}
+	 * @class ${2:class_name}
+	 */
+	$1.$2 = (function() {
+		
+		var _fromGetInstance = false;
+		var _instance;
+		
+		function _construct() {
+		    if (_fromGetInstance !== true) {
+		        throw new Error("must use the getInstance.");
+		    }
+		    _fromGetInstance = false;
+		}
+		
+		/**
+	     * @method getInstance
+	     * @return {Object}
+	     */
+	    _construct.getInstance = function() {
+		    if (_instance) {
+		        return _instance;
+		    }
+		    _fromGetInstance = true;
+		    _instance = new this();
+			_instance.init();
+			return _instance;
+		}
+		return _construct;
+	})();
+	
+	$1.prototype = {
+		
+		/**
+		 * This methoid is called once. 
+		 * 
+		 * @method init
+		 * @constructor
+		 */
+		init: function() {
+			${4}
+		}
+	}
+
+	var ins = $1.getInstance();
