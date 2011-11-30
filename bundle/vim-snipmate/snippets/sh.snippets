@@ -1,10 +1,30 @@
 ################# スニペット #################
+#sn_date_dot
+snippet sn_date_dot
+	`date '+%Y.%m.%d_%H.%M.%S'`
+#sn_date_slash
+snippet sn_date_slash
+	\`date '+%Y/%m/%d %H:%M:%S'\`
+#sn_date_jp
+snippet sn_date_jp
+	`date '+%Y年%m月%d日_%H時%M分%S秒'`
 #sn_grep
 snippet sn_grep
 	Utils_Grep "${1:string}" "${2:filepath}"
 	if [ $? -eq 0 ]; then
 	    # hit
 	    ${3}
+	fi
+
+#sn_choose
+snippet sn_choose
+	Utils_Choose "${1}" "${2}"
+	if [ "${choose}" = "$1" ]; then
+		# statements
+		${3}
+	elif [ "${choose}" = "$2" ]; then
+		# statements
+		
 	fi
 #sn_hr
 snippet sn_hr
