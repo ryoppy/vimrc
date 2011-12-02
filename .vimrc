@@ -376,13 +376,13 @@ let javaScript_fold=1
 "--------------------------------------------------------------------
 " php lint
 "--------------------------------------------------------------------
-"set laststatus=2
-"set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']['.&ft.']'}\ %{b:status}%=%l,%c%V%8P
-"au BufEnter * let b:status = ""
-"au BufWritePost *.php let b:status=substitute(system("php -l -n " . bufname("%")), '\n', " ", "g")[:70]
+set laststatus=2
+set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']['.&ft.']'}\ %{b:status}%=%l,%c%V%8P
+au BufEnter * let b:status = ""
+au BufWritePost *.php let b:status=substitute(system("php -l -n " . bufname("%")), '\n', " ", "g")[:70]
 
-function PHPLint()
-  let result = system( &ft . ' -l -n -d error_reporting=E_ALL ' . bufname(""))
-  echo result
-endfunction
-autocmd BufWritePre *.php call PHPLint()
+"function PHPLint()
+  "let result = system( &ft . ' -l -n -d error_reporting=E_ALL ' . bufname(""))
+  "echo result
+"endfunction
+"autocmd BufWritePre *.php call PHPLint()

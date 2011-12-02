@@ -1,3 +1,65 @@
+################# スニペット #################
+# sn_func_public
+snippet sn_func_public
+	/**
+	 * ${3}
+	 * 
+	 * @return void
+	 */
+	public function ${1:name}(${2:argument})
+	{
+		${4}
+	}
+# sn_func_pivate
+snippet sn_func_pivate
+	/**
+	 * ${3}
+	 * 
+	 * @return void
+	 */
+	private function _${1:name}(${2:argument})
+	{
+		${4}
+	}
+# sn_func_protected
+snippet sn_func_protected
+	/**
+	 * ${3}
+	 * 
+	 * @return void
+	 */
+	protected function _${1:name}(${2:argument})
+	{
+		${4}
+	}
+# sn_get_class_methods
+snippet sn_get_class_methods
+	echo "<pre>"; var_dump(get_class_methods(${1})); echo "</pre>"; exit;${2}
+################# zfスニペット #################
+# getQuery
+snippet sn_zf_get_query
+	$${1:name} = $this->_request->getQuery("$1");${2}
+# getPost
+snippet sn_zf_get_post
+	$${1:name} = $this->_request->getPost("$1");${2}
+# disable layout
+snippet sn_zf_layout_disable
+	$this->_helper->layout()->disableLayout();
+# set header
+snippet sn_zf_set_header
+	$this->_response->setHeader('Content-type', 'text/html; charset=UTF-8');
+################# zfショートカットコマンド#################
+# zd
+snippet zd
+	Zend_Debug::dump(${1});${2}
+################# ショートカット#################
+# d
+snippet d
+	var_dump(${1});${2}
+# e
+snippet e
+	exit;${1}
+################# スニペット #################
 snippet php
 	<?php
 	${1}
