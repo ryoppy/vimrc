@@ -19,6 +19,22 @@
 
 
 "--------------------------------------------------------------------
+" vim-snipmate
+"--------------------------------------------------------------------
+function! ReloadSnippets( snippets_dir, ft )
+    if strlen( a:ft ) == 0
+        let filetype = "_"
+    else
+        let filetype = a:ft
+    endif
+
+    call ResetSnippets()
+    call GetSnippets( a:snippets_dir, filetype )
+endfunction
+
+nmap ,rr :call ReloadSnippets(snippets_dir, &filetype)<CRr
+
+"--------------------------------------------------------------------
 " vim-template
 "--------------------------------------------------------------------
 autocmd User plugin-template-loaded silent! :%!php -n
@@ -73,28 +89,29 @@ autocmd FileType ruby set omnifunc=rubycomplete#Complete
 "---------------------------------------------------------------------
 " vim-browsereload-mac
 "---------------------------------------------------------------------
-let g:returnApp = "Terminal"
-let g:returnAppFlag = 1
+"if has('mac') 
+    let g:returnApp = "Terminal"
+    let g:returnAppFlag = 1
 
-"reload
-command! -bar Cr silent ChromeReload
-command! -bar Fr silent FirefoxReload
-command! -bar Sr silent SafariReload
-command! -bar Or silent OperaReload
-command! -bar Ar silent AllBrowserReload
-"auto reload start
-command! -bar CrStart silent ChromeReloadStart
-command! -bar FrStart silent FirefoxReloadStart
-command! -bar SrStart silent SafariReloadStart
-command! -bar OrStart silent OperaReloadStart
-command! -bar ArStart silent AllBrowserReloadStart
-"auto reload stop
-command! -bar CrStop silent ChromeReloadStop
-command! -bar FrStop silent FirefoxReloadStop
-command! -bar SrStop silent SafariReloadStop
-command! -bar OrStop silent OperaReloadStop
-command! -bar ArStop silent AllBrowserReloadStop
-
+    "reload
+    command! -bar Cr silent ChromeReload
+    command! -bar Fr silent FirefoxReload
+    command! -bar Sr silent SafariReload
+    command! -bar Or silent OperaReload
+    command! -bar Ar silent AllBrowserReload
+    "auto reload start
+    command! -bar CrStart silent ChromeReloadStart
+    command! -bar FrStart silent FirefoxReloadStart
+    command! -bar SrStart silent SafariReloadStart
+    command! -bar OrStart silent OperaReloadStart
+    command! -bar ArStart silent AllBrowserReloadStart
+    "auto reload stop
+    command! -bar CrStop silent ChromeReloadStop
+    command! -bar FrStop silent FirefoxReloadStop
+    command! -bar SrStop silent SafariReloadStop
+    command! -bar OrStop silent OperaReloadStop
+    command! -bar ArStop silent AllBrowserReloadStop
+"endif
 
 "---------------------------------------------------------------------
 " vim-js-jquery
@@ -376,13 +393,29 @@ let javaScript_fold=1
 "--------------------------------------------------------------------
 " php lint
 "--------------------------------------------------------------------
-set laststatus=2
-set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']['.&ft.']'}\ %{b:status}%=%l,%c%V%8P
-au BufEnter * let b:status = ""
-au BufWritePost *.php let b:status=substitute(system("php -l -n " . bufname("%")), '\n', " ", "g")[:70]
+"set laststatus=2
+"set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']['.&ft.']'}\ %{b:status}%=%l,%c%V%8P
+"au BufEnter * let b:status = ""
+"au BufWritePost *.php let b:status=substitute(system("php -l -n " . bufname("%")), '\n', " ", "g")[:70]
 
 "function PHPLint()
   "let result = system( &ft . ' -l -n -d error_reporting=E_ALL ' . bufname(""))
   "echo result
 "endfunction
 "autocmd BufWritePre *.php call PHPLint()
+
+
+"--------------------------------------------------------------------
+" Titanium設定
+"--------------------------------------------------------------------
+"function! TitaniumRun()
+    "let TitaniumCmd="titanium_builder"
+    "for e in [".", "..", "../..", "../../..", "../../../.."]
+        "let lsres = system("ls " . e)
+        "if lsres =~ ".*tiapp\.xml.*"
+            "let result = system(TitaniumCmd . " " . e)
+            "echo result
+        "endif
+    "endfor
+"endfunction
+"nnoremap <F3> :call TitaniumRun()<Return>
