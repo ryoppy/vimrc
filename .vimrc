@@ -18,6 +18,7 @@
 "#|div選択[Ctrl+y,] <div></div>
 
 
+
 "--------------------------------------------------------------------
 " vim-snipmate
 "--------------------------------------------------------------------
@@ -420,10 +421,8 @@ let javaScript_fold=1
     "endfor
 "endfunction
 "nnoremap <F3> :call TitaniumRun()<Return>
-"
 
 "--------------------------------------------------------------------
-" shがなぜかconfと判断されるので...
+" たまにshがうまくセットされないので
 "--------------------------------------------------------------------
-nnoremap <silent> <leader>sh :set filetype=sh<Return>
-
+nnoremap <silent> <leader>sh :set ft=sh<Return>
