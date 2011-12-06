@@ -32,7 +32,8 @@ function! ReloadSnippets( snippets_dir, ft )
     call GetSnippets( a:snippets_dir, filetype )
 endfunction
 
-nmap ,rr :call ReloadSnippets(snippets_dir, &filetype)<CRr
+nmap ,rr :call ReloadSnippets(snippets_dir, &filetype)<CR>
+
 
 "--------------------------------------------------------------------
 " vim-template
@@ -419,3 +420,10 @@ let javaScript_fold=1
     "endfor
 "endfunction
 "nnoremap <F3> :call TitaniumRun()<Return>
+"
+
+"--------------------------------------------------------------------
+" shがなぜかconfと判断されるので...
+"--------------------------------------------------------------------
+nnoremap <silent> <leader>sh :set filetype=sh<Return>
+
