@@ -408,21 +408,13 @@ let javaScript_fold=1
 
 
 "--------------------------------------------------------------------
-" Titanium設定
-"--------------------------------------------------------------------
-"function! TitaniumRun()
-    "let TitaniumCmd="titanium_builder"
-    "for e in [".", "..", "../..", "../../..", "../../../.."]
-        "let lsres = system("ls " . e)
-        "if lsres =~ ".*tiapp\.xml.*"
-            "let result = system(TitaniumCmd . " " . e)
-            "echo result
-        "endif
-    "endfor
-"endfunction
-"nnoremap <F3> :call TitaniumRun()<Return>
-
-"--------------------------------------------------------------------
 " たまにshがうまくセットされないので
 "--------------------------------------------------------------------
 nnoremap <silent> <leader>sh :set ft=sh<Return>
+
+
+"--------------------------------------------------------------------
+" /js/test.jsをgfで開けるように
+"--------------------------------------------------------------------
+autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=;/
+
