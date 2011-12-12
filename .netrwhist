@@ -1,4 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_cnt =5
 let g:netrw_dirhist_1='/var/www/vhosts/dennoo.sample.com'
 let g:netrw_dirhist_2='/home/ryo/.vim/bundle/vim-snipmate/after'
+let g:netrw_dirhist_3='/home/ryo/deploy/config/deploy'
+let g:netrw_dirhist_4='/home/ryo/src/yuidoc/generator_out'
+let g:netrw_dirhist_5='/home/ryo/yum_repo'

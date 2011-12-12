@@ -3,8 +3,9 @@
 #######################################################################################
 Name:           NAME
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        1
 Summary:        SUMMARY
+Summary(ja):    日本語サマリー
 Group:          System
 License:        BSD
 URL:            http://
@@ -20,6 +21,8 @@ Source0:    http://DOMAIN/NAME-%{version}.tar.gz
 %description
 ${4}
 
+%description -l ja
+${5}
 
 
 #######################################################################################
@@ -46,7 +49,7 @@ make %{?_smp_mflags}
 #######################################################################################
 %install
 [ "${buildroot}" != "/" ] && rm -rf ${buildroot}
-make install INSTALL_ROOT=%{buildroot}
+make install DESTDIR=%{buildroot}
 
 
 
@@ -62,6 +65,12 @@ rm -rf %{buildroot}
 ### Files
 #######################################################################################
 %files
+%defattr(-,root,root,-)
+# example ##################
+# %config(noreplace) /etc/*
+# %doc README
+# %lang(ja) %doc README.ja
+
 
 
 #######################################################################################
