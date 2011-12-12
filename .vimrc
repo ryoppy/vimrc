@@ -428,4 +428,5 @@ nnoremap <silent> <leader>sh :set ft=sh<Return>
 " /js/test.jsをgfで開けるように
 "--------------------------------------------------------------------
 autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=;/
+autocmd FileType titanium setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=;./
 

@@ -5,6 +5,11 @@
 "          <http://creativecommons.org/licenses/by/2.1/jp/deed.en>
 
 
+" -- エラーがでるので無視 ---------
+let b:did_ftplugin_titanium = 1
+" ---------------------------------
+
+
 if exists('b:did_ftplugin_titanium') " {{{1
   finish
 endif
