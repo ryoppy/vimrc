@@ -394,28 +394,28 @@ hi TabLineFill term=reverse cterm=reverse ctermfg=white ctermbg=black
 " javascript
 let javaScript_fold=1
 
-
 " func, forなど{}を一気にVisual選択
 nnoremap vb /{<CR>%v%0
 
 let php_folding=1
 au Syntax php set fdm=syntax
 
-let javaScript_fold=1
 
 "--------------------------------------------------------------------
 " php lint
 "--------------------------------------------------------------------
-"set laststatus=2
-"set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']['.&ft.']'}\ %{b:status}%=%l,%c%V%8P
-"au BufEnter * let b:status = ""
-"au BufWritePost *.php let b:status=substitute(system("php -l -n " . bufname("%")), '\n', " ", "g")[:70]
-
-"function PHPLint()
-  "let result = system( &ft . ' -l -n -d error_reporting=E_ALL ' . bufname(""))
-  "echo result
-"endfunction
-"autocmd BufWritePre *.php call PHPLint()
+function! PHPLint()
+    set laststatus=2
+    set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']['.&ft.']'}\ %{b:status}%=%l,%c%V%8P
+    au BufEnter * let b:status = ""
+    let b:status=substitute(system("php -l " . bufname("%")), '\n', " ", "g")[:70]
+    if stridx(b:status, 'Parse error') == -1
+        highlight StatusLine   term=NONE cterm=NONE ctermfg=white ctermbg=black
+    else
+        highlight StatusLine   term=NONE cterm=NONE ctermfg=red ctermbg=black
+    endif
+endfunction
+autocmd BufWritePost *.php call PHPLint()
 
 
 "--------------------------------------------------------------------
