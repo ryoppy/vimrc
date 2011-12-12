@@ -213,6 +213,17 @@ inoremap <Leader>p <ESC>pi
 " 挿入モードでCtrl+kを押すとクリップボードの内容を貼り付けられるようにする "
 imap <C-K>  <ESC>"*pa
 
+" 移動をラクに
+map 1k 10k
+map 1j 10j
+map 1hj 10h
+map 1l 10l
+
+map 2k 20k
+map 2j 20j
+map 2hj 20h
+map 2l 20l
+
 
 "-------------------------------------------------------------------------------
 " ステータスライン StatusLine

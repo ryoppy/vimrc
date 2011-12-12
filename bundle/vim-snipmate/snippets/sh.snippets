@@ -103,9 +103,21 @@ snippet sn_check_file_exist
 	    Utils_Echo_Red "File not found. ${checkFilePath}"
 	    exit 1
 	fi
-#sn_check
+#sn_check_command_exist
+snippet sn_check_command_exist
+	Utils_CheckCommandExist 
+	if [ $? -eq 0 ]; then
+		# exist
+	fi
+#sn_check_status
 snippet sn_check_status
 	Utils_CheckStatus $?
+#sn_check_repository_exist
+snippet sn_check_repository_exist
+	Utils_CheckRepositoryExist ${1:name}
+	if [ $? -eq 0 ]; then
+		# exist
+	fi
 #sn_yes_only
 snippet sn_yes_only
 	Utils_YesOnly "${1:Are you ready?}"
