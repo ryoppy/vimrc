@@ -7,6 +7,7 @@ function throw() {
 
 [ -d "$HOME/.vim" ] && throw "~/.vim already exists."
 [ -e "$HOME/.vimrc" ] && throw "~/.vimrc already exists."
+[ -e "$HOME/.jslintrc" ] && throw "~/.jslintrc already exists."
 
 mkdir -p ~/.vim
 cd ~/.vim
@@ -15,9 +16,13 @@ cd ~/.vim
 git clone git://github.com/ryoppy/vimrc.git
 
 # Set .vimrc
-ln -s ./.vimrc ~/
+ln -sf ./.vimrc ~/
+ln -sf ./.jslintrc ~/
 
 echo "Vim setup complete."
-echo " - ~/.vim"
-echo " - ~/.vimrc"
-
+echo ""
+echo "--- directory ---"
+echo " ~/.vim"
+echo "--- symbolic link ---"
+echo " ~/.vimrc"
+echo " ~/.jslintrc"

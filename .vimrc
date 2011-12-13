@@ -419,6 +419,12 @@ autocmd BufWritePost *.php call PHPLint()
 
 
 "--------------------------------------------------------------------
+" js lint
+"--------------------------------------------------------------------
+let $JS_CMD='node'
+
+
+"--------------------------------------------------------------------
 " たまにshがうまくセットされないので
 "--------------------------------------------------------------------
 nnoremap <silent> <leader>sh :set ft=sh<Return>
@@ -428,4 +434,3 @@ nnoremap <silent> <leader>sh :set ft=sh<Return>
 " /js/test.jsをgfで開けるように
 "--------------------------------------------------------------------
 autocmd FileType html,javascript,css,javascript.titanium setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=;/
-
