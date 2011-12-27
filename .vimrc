@@ -392,13 +392,15 @@ hi TabLineFill term=reverse cterm=reverse ctermfg=white ctermbg=black
 " fold設定
 "-------------------------------------------------------------------------------
 " javascript
-let javaScript_fold=1
+"let javaScript_fold=1
+
+let php_folding=1
+au Syntax php set fdm=syntax
 
 " func, forなど{}を一気にVisual選択
 nnoremap vb /{<CR>%v%0
 
-let php_folding=1
-au Syntax php set fdm=syntax
+
 "--------------------------------------------------------------------
 " php lint
 "--------------------------------------------------------------------
@@ -419,7 +421,7 @@ autocmd BufWritePost *.php call PHPLint()
 "--------------------------------------------------------------------
 " js lint
 "--------------------------------------------------------------------
-let $JS_CMD='node'
+"let $JS_CMD='node'
 
 
 "--------------------------------------------------------------------
