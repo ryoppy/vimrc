@@ -1,0 +1,6 @@
+# --- 共通設定 ---
+/*jslint browser: true, regexp: true */
+/*global jQuery, $ */
+
+
+/* vim: set ft=javascript: */
