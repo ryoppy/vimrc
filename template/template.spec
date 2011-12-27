@@ -48,7 +48,7 @@ make %{?_smp_mflags}
 ### Install
 #######################################################################################
 %install
-[ "${buildroot}" != "/" ] && rm -rf ${buildroot}
+[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
 
 

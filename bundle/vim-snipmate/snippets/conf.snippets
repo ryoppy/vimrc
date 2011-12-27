@@ -1,7 +1,7 @@
 # --- Apache Snippets ---
 snippet sn_apache_virtual_host
 	###
-	### ${1:domain}${2:80}
+	### ${1:domain}:${2:80}
 	### 
 	<VirtualHost *:$2>
 		DocumentRoot "/var/www/vhosts/$1/public"
@@ -9,7 +9,7 @@ snippet sn_apache_virtual_host
 		ErrorLog "logs/$1_error_log"
 		CustomLog "logs/$1_access_log" common
 	</VirtualHost>
-snippet sn_apache_virtual_host_devel
+snippet sn_apache_virtual_host_root
 	###
 	### VirtualHostRoot
 	### 

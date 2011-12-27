@@ -8,6 +8,10 @@ snippet sn_date_slash
 #sn_date_jp
 snippet sn_date_jp
 	`date '+%Y年%m月%d日_%H時%M分%S秒'`
+#sn_getip
+snippet sn_get_ip
+	Utils_GetIp
+	ip=${result}
 #sn_grep
 snippet sn_grep
 	Utils_Grep "${1:string}" "${2:filepath}"
@@ -29,6 +33,16 @@ snippet sn_choose
 #sn_hr
 snippet sn_hr
 	Utils_Hr #------------------------------------
+#sn_h2
+snippet sn_h2
+	#####################################
+	Utils_H2 "${1}"
+	#####################################
+#sn_h3
+snippet sn_h3
+	#------------------------------------
+	Utils_H3 "${1}"
+	#------------------------------------
 #sn_get_random
 snippet sn_get_random
 	# Get random char. (args: 0=length, 1=special)
