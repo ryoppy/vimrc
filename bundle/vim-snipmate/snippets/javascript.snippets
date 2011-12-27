@@ -27,7 +27,7 @@ snippet sn_singleton
 		    _ins = new this();
 			_ins.init();
 			return _ins;
-		}
+		};
 		return _c;
 	})();
 	
@@ -42,7 +42,7 @@ snippet sn_singleton
 		init: function() {
 			${4}
 		}
-	}
+	};
 
 	var ins = $1.$2.getInstance();
 # setInterval
@@ -65,6 +65,14 @@ snippet sn_typeof
 	}
 # skeleton
 snippet sn_skeleton
+	
+	/**
+	 * @module $1
+	 * @see https://github.com/yui/yui3/blob/master/build/yui/yui.js
+	 */
+	
+	/*global $1: true*/
+
 	/**
 	 * Project name is $1.
 	 * 
@@ -81,7 +89,7 @@ snippet sn_skeleton
 	 */
 	$1.$2 = function() {
 		this.init();
-	}
+	};
 	
 	$1.$2.prototype = {
 		/**
@@ -93,7 +101,7 @@ snippet sn_skeleton
 		init: function() {
 			${4}
 		}
-	}
+	};
 # class
 snippet sn_class
 	/**
@@ -103,7 +111,7 @@ snippet sn_class
 	 */
 	$1.$2 = function() {
 		this.init();
-	}
+	};
 	
 	$1.$2.prototype = {
 		/**
@@ -115,7 +123,7 @@ snippet sn_class
 		init: function() {
 			${4}
 		}
-	}
+	};
 # extend
 snippet sn_extend
 	/**
@@ -135,7 +143,7 @@ snippet sn_extend
 			d[field] = s[field];
 		}
 		return d;
-	}
+	};
 # sn_ready
 snippet sn_ready
 	$(function() {
@@ -152,7 +160,7 @@ snippet sn_ajax
 			${4}
 		}
 	});
-# console.debug
+# sn_debug
 snippet sn_debug
 	/**
 	 * IEエラー回避
@@ -188,6 +196,10 @@ snippet anim
 # $
 snippet $
 	$("${1}")${2};
+################# JSLintショートカットスニペット #################
+# sn_jsl_comm
+snippet sn_jsl_comm
+	/*global ${1:name}: true*/${2}
 ################# ショートカットスニペット #################
 # Comment
 snippet comm
@@ -249,7 +261,7 @@ snippet funcv
 	 */
 	var ${1:name} = function(${2:argument}) {
 		${4}
-	}
+	};
 # FunctionAnonymous 
 snippet funca
 	(function() {

@@ -18,19 +18,18 @@ let s:install_dir = expand('<sfile>:p:h')
 au BufLeave <buffer> call s:JSLintClear()
 
 au BufEnter <buffer> call s:JSLint()
-au InsertLeave <buffer> call s:JSLint()
+"au InsertLeave <buffer> call s:JSLint()
 "au InsertEnter <buffer> call s:JSLint()
 au BufWritePost <buffer> call s:JSLint()
 
 " due to http://tech.groups.yahoo.com/group/vimdev/message/52115
+" カーソルが移動した時にチェックするのはウザいので外す
 if(!has("win32") || v:version>702)
-  au CursorHold <buffer> call s:JSLint()
-  au CursorHoldI <buffer> call s:JSLint()
-
-  au CursorHold <buffer> call s:GetJSLintMessage()
+  "au CursorHold <buffer> call s:JSLint()
+  "au CursorHoldI <buffer> call s:JSLint()
+  "au CursorHold <buffer> call s:GetJSLintMessage()
 endif
-
-au CursorMoved <buffer> call s:GetJSLintMessage()
+"au CursorMoved <buffer> call s:GetJSLintMessage()
 
 if !exists("g:JSLintHighlightErrorLine")
   let g:JSLintHighlightErrorLine = 1
@@ -54,6 +53,7 @@ noremap <buffer><silent> dd dd:JSLintUpdate<CR>
 noremap <buffer><silent> dw dw:JSLintUpdate<CR>
 noremap <buffer><silent> u u:JSLintUpdate<CR>
 noremap <buffer><silent> <C-R> <C-R>:JSLintUpdate<CR>
+noremap <buffer><silent> <C-L> <C-L>:JSLintUpdate<CR>
 
 " Set up command and parameters
 if has("win32")
