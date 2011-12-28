@@ -27,7 +27,7 @@ noremap <Leader>t :noautocmd vimgrep /TODO/j **/*.rb **/*.js **/*.m **/*.m<CR>:c
 "--------------------------------------------------------------------
 " vim-template
 "--------------------------------------------------------------------
-autocmd User plugin-template-loaded silent! :%!php -n
+autocmd User plugin-template-loaded silent! :%!php
 
 
 "--------------------------------------------------------------------
@@ -176,12 +176,6 @@ set showcmd
 
 " 現在のモードを表示
 set showmode
-
-" OSのクリップボードを使用する
-set clipboard+=unnamed
-
-"ヤンクした文字は、システムのクリップボードに入れる"
-set clipboard=unnamed
 
 " Ev/Rvでvimrcの編集と反映
 command! Ev edit $MYVIMRC   
