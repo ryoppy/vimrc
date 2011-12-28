@@ -18,22 +18,10 @@
 "#|div選択[Ctrl+y,] <div></div>
 
 
-
 "--------------------------------------------------------------------
-" vim-snipmate
+" TODO List
 "--------------------------------------------------------------------
-function! ReloadSnippets( snippets_dir, ft )
-    if strlen( a:ft ) == 0
-        let filetype = "_"
-    else
-        let filetype = a:ft
-    endif
-
-    call ResetSnippets()
-    call GetSnippets( a:snippets_dir, filetype )
-endfunction
-
-nmap ,rr :call ReloadSnippets(snippets_dir, &filetype)<CR>
+noremap <Leader>t :noautocmd vimgrep /TODO/j **/*.rb **/*.js **/*.m **/*.m<CR>:cw<CR>
 
 
 "--------------------------------------------------------------------
@@ -91,7 +79,7 @@ autocmd FileType ruby set omnifunc=rubycomplete#Complete
 "---------------------------------------------------------------------
 " vim-browsereload-mac
 "---------------------------------------------------------------------
-"if has('mac') 
+if match(system("uname"),'Darwin') != -1
     let g:returnApp = "Terminal"
     let g:returnAppFlag = 1
 
@@ -113,7 +101,7 @@ autocmd FileType ruby set omnifunc=rubycomplete#Complete
     command! -bar SrStop silent SafariReloadStop
     command! -bar OrStop silent OperaReloadStop
     command! -bar ArStop silent AllBrowserReloadStop
-"endif
+endif
 
 "---------------------------------------------------------------------
 " vim-js-jquery
@@ -421,7 +409,9 @@ autocmd BufWritePost *.php call PHPLint()
 "--------------------------------------------------------------------
 " js lint
 "--------------------------------------------------------------------
-"let $JS_CMD='node'
+if match(system("uname"),'Darwin') != -1
+    let $JS_CMD='node'
+endif
 
 
 "--------------------------------------------------------------------
