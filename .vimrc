@@ -21,7 +21,13 @@
 "--------------------------------------------------------------------
 " TODO List
 "--------------------------------------------------------------------
-noremap <Leader>t :noautocmd vimgrep /TODO/j **/*.rb **/*.js **/*.m **/*.m<CR>:cw<CR>
+noremap <Leader>to :noautocmd vimgrep /TODO/j **/*.rb **/*.js **/*.m **/*.m<CR>:cw<CR>
+
+
+"--------------------------------------------------------------------
+" vim-pathogen
+"--------------------------------------------------------------------
+call pathogen#infect()
 
 
 "--------------------------------------------------------------------
@@ -43,9 +49,16 @@ let g:user_zen_settings = { 'indentation':'    ' }
 
 
 "--------------------------------------------------------------------
-" vim-pathogen
+" vim-surround
 "--------------------------------------------------------------------
-call pathogen#infect()
+" 選択Sp = <?php *** ?>
+autocmd FileType php,html let b:surround_112 = "<?php \r ?>"
+
+" 選択Sg = _('***')
+autocmd FileType php,html let g:surround_103 = "_('\r')"  " 103 = g
+
+" 選択SG = _("***")
+autocmd FileType php,html let g:surround_71 = "_(\"\r\")" " 71 = G
 
 
 "---------------------------------------------------------------------
@@ -154,6 +167,10 @@ if has('win32') || has('win64')
 else
  call unite#set_substitute_pattern('file', '^;v', '~/.vim/')
 endif
+
+" yank履歴を\gyで扱える
+let g:unite_source_history_yank_enable =1  "history/yankの有効化
+nnoremap <silent>gy :<C-u>Unite history/yank<CR>
 
 
 "---------------------------------------------------------------------
