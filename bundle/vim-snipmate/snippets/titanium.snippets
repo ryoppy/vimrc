@@ -1,0 +1,38 @@
+########## shortcut ########
+#td
+snippet td
+	Ti.API.debug(${1});${2}
+#arguments
+snippet ar
+	arguments${1}
+#window
+snippet win
+	var ${1:name}Window = Ti.UI.createWindow();${2}
+#window url
+snippet win_url
+	var ${1:name}Window = Ti.UI.createWindow({
+		url: "${1:url}"
+	});${2}
+#include
+snippet incl
+	Ti.include("/app/${1}");${2}
+########## snippet ##########
+#tab
+snippet sn_tt_tab
+	var ${1:name}Tab = Ti.UI.createTab({
+		title:'$1',
+		window:$1Window
+	});${2}
+#tabgroup
+snippet sn_tt_tabgroup
+	var ${1:name}Tab = Ti.UI.createTab({
+		title:'$1',
+		window:$1Window
+	});
+	var tabGroup = Ti.UI.createTabGroup();
+	tabGroup.addTab($1Tab);${2}
+#navigation
+snippet sn_tt_nav
+	var ${1:name}Nav = Titanium.UI.iPhone.createNavigationGroup({
+		window : $1Window
+	});${2}

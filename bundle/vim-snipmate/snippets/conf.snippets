@@ -1,0 +1,25 @@
+# --- Apache Snippets ---
+snippet sn_apache_virtual_host
+	###
+	### ${1:domain}:${2:80}
+	### 
+	<VirtualHost *:$2>
+		DocumentRoot "/var/www/vhosts/$1/public"
+		ServerName $1
+		ErrorLog "logs/$1_error_log"
+		CustomLog "logs/$1_access_log" common
+	</VirtualHost>
+snippet sn_apache_virtual_host_root
+	###
+	### VirtualHostRoot
+	### 
+	### *.${1:sample.com}:${2:port}
+	###  ex) test.$1 -> /var/www/vhosts/test.$1/public
+	###
+	<VirtualHost *:$2>
+		ServerName  default.$1
+		ServerAlias *.$1
+		VirtualDocumentRoot "/var/www/vhosts/%0/public"
+		ErrorLog "logs/$1_error_log"
+		CustomLog "logs/$1_access_log" common
+	</VirtualHost>
