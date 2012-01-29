@@ -16,8 +16,8 @@ cd ~/.vim
 git clone git://github.com/ryoppy/vimrc.git
 
 # Set .vimrc
-ln -sf ~/vim/.vimrc ~/
-ln -sf ~/vim/.jslintrc ~/
+ln -sf ~/.vim/.vimrc ~/
+ln -sf ~/.vim/.jslintrc ~/
 
 echo "Vim setup complete."
 echo ""
