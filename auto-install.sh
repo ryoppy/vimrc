@@ -13,7 +13,7 @@ mkdir -p ~/.vim
 cd ~/.vim
 
 # Get Vimrc
-git clone git://github.com/ryoppy/vimrc.git
+git clone git://github.com/ryoppy/vimrc.git .
 
 # Set .vimrc
 ln -sf ~/.vim/.vimrc ~/
