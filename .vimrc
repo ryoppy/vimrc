@@ -16,6 +16,10 @@
 "#|----- vim-zencoding -----
 "#|div[Ctrl+y,]     <div></div>
 "#|div選択[Ctrl+y,] <div></div>
+"#|
+"#|----- vim-align -----
+"#|\t=   =で整列
+"#|\acom コメントの整列
 
 
 "--------------------------------------------------------------------
@@ -393,8 +397,8 @@ hi TabLineFill term=reverse cterm=reverse ctermfg=white ctermbg=black
 " javascript
 "let javaScript_fold=1
 
-let php_folding=1
-au Syntax php set fdm=syntax
+"let php_folding=1
+"au Syntax php set fdm=syntax
 
 " func, forなど{}を一気にVisual選択
 nnoremap vb /{<CR>%v%0

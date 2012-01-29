@@ -1,4 +1,30 @@
 ################# スニペット #################
+# sn_skeleton
+snippet sn_skeleton
+	<?php
+	/**
+	 * ${2:Descripsion}
+	 *
+	 * @package    $1
+	 * @copyright  Copyright (c) ryo hongo All Right Reserved.
+	 */
+	class ${1:ClassName}
+	{
+		/**
+		 * Constructor
+		 *
+		 * @return void
+		 */
+		public function __construct()
+		{
+			// any code.
+		}
+	}
+# sn_is_ajax
+snippet sn_is_ajax
+	if (!$this->_request->isXmlHttpRequest()) {                                                                                                                  
+		throw new Zend_Exception('ajax only.');
+	}
 # sn_func_public
 snippet sn_func_public
 	/**
@@ -36,6 +62,9 @@ snippet sn_func_protected
 snippet sn_get_class_methods
 	echo "<pre>"; var_dump(get_class_methods(${1})); echo "</pre>"; exit;${2}
 ################# zfスニペット #################
+# sn_zf_registory_get
+snippet sn_zf_registory_get
+	$${1} = Zend_Registry::get('${2}');
 # getQuery
 snippet sn_zf_get_query
 	$${1:name} = $this->_request->getQuery("$1");${2}
@@ -43,8 +72,11 @@ snippet sn_zf_get_query
 snippet sn_zf_get_post
 	$${1:name} = $this->_request->getPost("$1");${2}
 # disable layout
-snippet sn_zf_layout_disable
+snippet sn_zf_disable_layout
 	$this->_helper->layout()->disableLayout();
+# disable view
+snippet sn_zf_disable_view
+	$this->_helper->viewRenderer->setNoRender();
 # set header
 snippet sn_zf_set_header
 	$this->_response->setHeader('Content-type', 'text/html; charset=UTF-8');
@@ -52,13 +84,43 @@ snippet sn_zf_set_header
 # zd
 snippet zd
 	Zend_Debug::dump(${1});${2}
+################# zf_providerスニペット #################
+# sn_p_skeleton
+snippet sn_p_skeleton
+	$this->_response = $this->_registry->getResponse();
+	$this->_response->appendContent('');
+	$this->_response->appendContent("<${1}>", RopProviderHelper::$titleOption);
+	$this->_response->appendContent('');
+	
+	${2}
+# sn_p_throw
+snippet sn_p_throw
+	throw new Zend_Tool_Project_Provider_Exception("${1}");${2}
 ################# ショートカット#################
+# APP_ENV
+snippet APP_ENV
+	APPLICATION_ENV
+# APP_PATH
+snippet APP_PATH
+	APPLICATION_PATH
+# pro
+snippet pro
+	production
+# t
+snippet t
+	$this->${1}
 # d
 snippet d
 	var_dump(${1});${2}
 # e
 snippet e
 	exit;${1}
+# throw
+snippet throw
+	throw new Zend_Exception(sprintf("${1}", ${2}));${3}
+# r
+snippet r
+	return ${1};
 ################# スニペット #################
 snippet php
 	<?php
@@ -243,9 +305,6 @@ snippet elseif
 	elseif (${1:/* condition */}) {
 		${2:// code...}
 	}
-# Tertiary conditional
-snippet t
-	$${1:retVal} = (${2:condition}) ? ${3:a} : ${4:b};${5}
 snippet switch
 	switch ($${1:variable}) {
 		case '${2:value}':
