@@ -31,8 +31,9 @@ snippet sn_func_public
 	 * ${3}
 	 * 
 	 * @return void
+	 * @author ryo_hongo
 	 */
-	public function ${1:name}(${2:argument})
+	public function ${1:name}(${2})
 	{
 		${4}
 	}
@@ -42,8 +43,9 @@ snippet sn_func_pivate
 	 * ${3}
 	 * 
 	 * @return void
+	 * @author ryo_hongo
 	 */
-	private function _${1:name}(${2:argument})
+	private function _${1:name}(${2})
 	{
 		${4}
 	}
@@ -53,8 +55,9 @@ snippet sn_func_protected
 	 * ${3}
 	 * 
 	 * @return void
+	 * @author ryo_hongo
 	 */
-	protected function _${1:name}(${2:argument})
+	protected function _${1:name}(${2})
 	{
 		${4}
 	}
@@ -81,9 +84,21 @@ snippet sn_zf_disable_view
 snippet sn_zf_set_header
 	$this->_response->setHeader('Content-type', 'text/html; charset=UTF-8');
 ################# zfショートカットコマンド#################
-# zd
-snippet zd
+# APP_ENV
+snippet APP_ENV
+	APPLICATION_ENV
+# APP_PATH
+snippet APP_PATH
+	APPLICATION_PATH
+# pro
+snippet pro
+	production
+# zf_debug
+snippet zf_debug
 	Zend_Debug::dump(${1});${2}
+# zf_throw
+snippet zf_throw
+	throw new Zend_Exception(sprintf("${1}", ${2}));${3}
 ################# zf_providerスニペット #################
 # sn_p_skeleton
 snippet sn_p_skeleton
@@ -97,15 +112,6 @@ snippet sn_p_skeleton
 snippet sn_p_throw
 	throw new Zend_Tool_Project_Provider_Exception("${1}");${2}
 ################# ショートカット#################
-# APP_ENV
-snippet APP_ENV
-	APPLICATION_ENV
-# APP_PATH
-snippet APP_PATH
-	APPLICATION_PATH
-# pro
-snippet pro
-	production
 # t
 snippet t
 	$this->${1}
@@ -126,8 +132,10 @@ snippet php
 	<?php
 	${1}
 	?>
+snippet phpe
+	<?php echo ${1}; ?>
 snippet ec
-	echo "${1:string}"${2};
+	echo ${1};${2}
 snippet inc
 	include '${1:file}';${2}
 snippet inc1
@@ -139,21 +147,21 @@ snippet req1
 # $GLOBALS['...']
 snippet globals
 	$GLOBALS['${1:variable}']${2: = }${3:something}${4:;}${5}
-snippet $_ COOKIE['...']
+snippet $_COOKIE['...']
 	$_COOKIE['${1:variable}']${2}
-snippet $_ ENV['...']
+snippet $_ENV['...']
 	$_ENV['${1:variable}']${2}
-snippet $_ FILES['...']
+snippet $_FILES['...']
 	$_FILES['${1:variable}']${2}
-snippet $_ Get['...']
+snippet $_Get['...']
 	$_GET['${1:variable}']${2}
-snippet $_ POST['...']
+snippet $_POST['...']
 	$_POST['${1:variable}']${2}
-snippet $_ REQUEST['...']
+snippet $_REQUEST['...']
 	$_REQUEST['${1:variable}']${2}
-snippet $_ SERVER['...']
+snippet $_SERVER['...']
 	$_SERVER['${1:variable}']${2}
-snippet $_ SESSION['...']
+snippet $_SESSION['...']
 	$_SESSION['${1:variable}']${2}
 # Start Docblock
 snippet /*
@@ -324,8 +332,12 @@ snippet for
 		${4: // code...}
 	}
 snippet foreach
-	foreach ($${1:variable} as $${2:key}) {
-		${3:// code...}
+	foreach ($${1:variable} as $${2:value}) {
+		${3:}
+	}
+snippet foreach_key
+	foreach ($${1:variable} as $${2:key} => ${3:value}) {
+		${4}
 	}
 snippet fun
 	${1:public }function ${2:FunctionName}(${3})

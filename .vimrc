@@ -2,11 +2,18 @@
 " 覚えるショートカット
 "--------------------------------------------------------------------
 "#|----- common -----
-"#|<F5>   ペーストモードon/off
-"#|:Ev    vimrcを編集
 "#|:Rv    vimrcを反映
-"#|<F1>   一つ右のtabへ
-"#|<F2>   一つ左のtabへ
+"#|Ctrl+a 数字インクリメント
+"#|Ctrl+x 数字デクリメント
+"#|noremap <SPACE>t :tabedit<Return>
+"#|nnoremap <SPACE>w :tabclose<Return>
+"\ta trinity all
+"\th leftnav taglist
+"\tj(F8) src exploer
+"\tl NERDTree
+"
+"Ctrl-w-+ : ウインド拡大
+"
 "#|
 "#|----- mark -----
 "#|ma     aマークを付ける
@@ -20,6 +27,26 @@
 "#|----- vim-align -----
 "#|\t=   =で整列
 "#|\acom コメントの整列
+"#|\tsp  空白で分割して均等に整列
+"
+"--------------------------------------------------------------------
+" 覚えたショートカット
+"--------------------------------------------------------------------
+"<F1>   一つ右のtabへ
+"<F2>   一つ左のtabへ
+"<F5>   ペーストモードon/off
+":Ev    vimrcを編集
+"
+
+
+"--------------------------------------------------------------------
+" ショートカット
+"--------------------------------------------------------------------
+" Visual選択
+map v{ vi{
+map v( vi(
+map v' vi'
+map v" vi"
 
 
 "--------------------------------------------------------------------
@@ -32,6 +59,51 @@ noremap <Leader>to :noautocmd vimgrep /TODO/j **/*.rb **/*.js **/*.m **/*.m<CR>:
 " vim-pathogen
 "--------------------------------------------------------------------
 call pathogen#infect()
+
+
+"--------------------------------------------------------------------
+" vim-trinity
+" vim-srcexpl
+"--------------------------------------------------------------------
+nmap <leader>ta :TrinityToggleAll<CR>
+nmap <leader>th :TrinityToggleTagList<CR>
+nmap <leader>tj :TrinityToggleSourceExplorer<CR>
+nmap <F8>       :TrinityToggleSourceExplorer<CR>
+nmap <leader>tl :TrinityToggleNERDTree<CR>
+let g:SrcExpl_updateTagsCmd = "ctags -R --languages=PHP --langmap=PHP:.php.inc --php-types=c+f+d -f ~/live_trunk_web/tags ~/live_trunk_web" 
+let g:SrcExpl_updateTagsKey = "<F9>"
+
+
+"--------------------------------------------------------------------
+" vim-subversion
+"--------------------------------------------------------------------
+" color調整
+" http://d.hatena.ne.jp/kakurasan/20080703
+hi DiffAdd    ctermfg=black ctermbg=154
+hi DiffChange ctermfg=black ctermbg=159
+hi DiffDelete ctermfg=black ctermbg=254
+hi DiffText   ctermfg=black ctermbg=225
+nmap <leader>crv :VCSRevert<CR>
+
+
+"--------------------------------------------------------------------
+" vim-pathogen
+"--------------------------------------------------------------------
+call pathogen#infect()
+
+
+"--------------------------------------------------------------------
+" vim-template
+"--------------------------------------------------------------------
+autocmd User plugin-template-loaded silent! :%!php
+
+
+"--------------------------------------------------------------------
+" vim-toggle
+"--------------------------------------------------------------------
+imap <C-G> <C-O>:call Toggle()<CR>
+nmap <C-G> :call Toggle()<CR>
+vmap <C-G> <ESC>:call Toggle()<CR>
 
 
 "--------------------------------------------------------------------
@@ -176,6 +248,13 @@ endif
 let g:unite_source_history_yank_enable =1  "history/yankの有効化
 nnoremap <silent>gy :<C-u>Unite history/yank<CR>
 
+" /Volumeが無視されていたので追記
+let g:unite_source_file_mru_ignore_pattern = '\~$\|\.\%(o\|exe\|dll\|bak\|sw[po]\)$\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\)'
+
+" より便利に
+nmap <SPACE>h <SPACE>t<leader>uh
+nmap <SPACE>f <SPACE>t<leader>uf
+
 
 "---------------------------------------------------------------------
 " Configure
@@ -185,6 +264,9 @@ nnoremap <silent>gy :<C-u>Unite history/yank<CR>
 set encoding=utf-8
 set nu
 syntax on
+
+" ビープ音off
+set noerrorbells
 
 " スクロール時の余白確保
 set scrolloff=5
@@ -229,6 +311,13 @@ map 2l 20l
 
 map <C-S> :w<CR>
 imap <C-S> <ESC>:w<CR>
+
+"改行コードの自動認識
+set fileformats=unix,dos,mac
+" □とか○の文字があってもカーソル位置がずれないようにする
+if exists('&ambiwidth')
+    set ambiwidth=double
+endif
 
 
 
@@ -307,6 +396,10 @@ set autoindent
 "インクリメンタルサーチを行う
 set incsearch
 
+" 検索のハイライト
+set hlsearch
+nmap <Esc><Esc> :nohlsearch<CR><Esc>
+
 "タブ文字、行末など不可視文字を表示する
 set list
 
@@ -382,17 +475,17 @@ autocmd BufWritePre *.php,*.rb,*.js,*.bat call RTrim()
 " タブ設定
 "-------------------------------------------------------------------------------
 " ショートカット
-nnoremap <C-t> :tabedit<Return>
-nnoremap <C-w> :tabclose<Return>
-nnoremap <F2>  :tabn<Return>
-nnoremap <F1>  :tabprevious<Return>
+nnoremap <SPACE>t :tabedit<Return>
+nnoremap <SPACE>w :tabclose<Return>
+nnoremap <F2>     :tabn<Return>
+nnoremap <F1>     :tabprevious<Return>
 
 set showtabline=4
 
 " タブ色設定
-hi TabLine     term=reverse cterm=reverse ctermfg=white ctermbg=black
+hi TabLine     term=reverse cterm=reverse ctermfg=black ctermbg=white
 hi TabLineSel  term=bold cterm=bold ctermfg=5
-hi TabLineFill term=reverse cterm=reverse ctermfg=white ctermbg=black
+hi TabLineFill term=reverse cterm=reverse ctermfg=black ctermbg=white
 
 
 "-------------------------------------------------------------------------------
@@ -404,8 +497,6 @@ hi TabLineFill term=reverse cterm=reverse ctermfg=white ctermbg=black
 "let php_folding=1
 "au Syntax php set fdm=syntax
 
-" func, forなど{}を一気にVisual選択
-nnoremap vb /{<CR>%v%0
 
 
 "--------------------------------------------------------------------
@@ -443,3 +534,13 @@ nnoremap <silent> <leader>sh :set ft=sh<Return>
 " /js/test.jsをgfで開けるように
 "--------------------------------------------------------------------
 autocmd FileType php,html,javascript,css,javascript.titanium setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=;/
+
+
+"--------------------------------------------------------------------
+" それぞれの環境ごとの設定 (git管理外)
+"--------------------------------------------------------------------
+if filereadable(expand('~/.vimrc.local'))
+	source ~/.vimrc.local
+endif
+
+let g:NERDTreeWinSize=70
