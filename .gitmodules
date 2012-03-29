@@ -1,6 +1,6 @@
-[submodule "memolist.vim"]
-	path = memolist.vim
-	url = git://github.com/glidenote/memolist.vim.git
 [submodule "bundle/vim-memolist"]
 	path = bundle/vim-memolist
 	url = git://github.com/glidenote/memolist.vim.git
+[submodule "bundle/vim-phplint"]
+	path = bundle/vim-phplint
+	url = git://github.com/Jonty/phplint.vim.git
