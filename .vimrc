@@ -75,6 +75,16 @@ let g:SrcExpl_updateTagsKey = "<F9>"
 
 
 "--------------------------------------------------------------------
+" vim-memolist
+" https://github.com/glidenote/memolist.vim
+"--------------------------------------------------------------------
+let g:memolist_path = "~/note"
+map <Leader>mn  :MemoNew<CR>
+map <Leader>ml  :MemoList<CR>
+map <Leader>mg  :MemoGrep<CR>
+
+
+"--------------------------------------------------------------------
 " vim-subversion
 "--------------------------------------------------------------------
 " color調整
@@ -429,12 +439,7 @@ set backspace=indent,eol,start
 set complete=.,w,b,u,t,i,k
 
 "共有のクリップボードを使用する
-set clipboard=unnamed
-
-"カレントディレクトリを出力
-cmap <c-x> <c-r>=expand('%:p:h')<cr>/
-"ファイル名(フルパス)を出力
-cmap <c-z> <c-r>=expand('%:p:r')<cr>
+set clipboard=unnamed,autoselect
 
 " IMEに応じて色を変える
 hi CursorIM  guifg=black  guibg=red  gui=NONE  ctermfg=black  ctermbg=white  cterm=reverse
@@ -487,6 +492,42 @@ hi TabLine     term=reverse cterm=reverse ctermfg=black ctermbg=white
 hi TabLineSel  term=bold cterm=bold ctermfg=5
 hi TabLineFill term=reverse cterm=reverse ctermfg=black ctermbg=white
 
+" 個別のタブの表示設定をします
+function! GuiTabLabel()
+  " タブで表示する文字列の初期化をします
+  let l:label = ''
+
+  " タブに含まれるバッファ(ウィンドウ)についての情報をとっておきます。
+  let l:bufnrlist = tabpagebuflist(v:lnum)
+
+  " 表示文字列にバッファ名を追加します
+  " パスを全部表示させると長いのでファイル名だけを使います 詳しくは help fnamemodify()
+  let l:bufname = fnamemodify(bufname(l:bufnrlist[tabpagewinnr(v:lnum) - 1]), ':t')
+  " バッファ名がなければ No title としておきます。ここではマルチバイト文字を使わないほうが無難です
+  let l:label .= l:bufname == '' ? 'No title' : l:bufname
+
+  " タブ内にウィンドウが複数あるときにはその数を追加します(デフォルトで一応あるので)
+  let l:wincount = tabpagewinnr(v:lnum, '$')
+  if l:wincount > 1
+    let l:label .= '[' . l:wincount . ']'
+  endif
+
+  " このタブページに変更のあるバッファがるときには '[+]' を追加します(デフォルトで一応あるので)
+  for bufnr in l:bufnrlist
+    if getbufvar(bufnr, "&modified")
+      let l:label .= '[+]'
+      break
+    endif
+  endfor
+
+  " 表示文字列を返します
+  return l:label
+endfunction
+
+" guitablabel に上の関数を設定します
+" その表示の前に %N というところでタブ番号を表示させています
+set guitablabel=%N:\ %{GuiTabLabel()}
+
 
 "-------------------------------------------------------------------------------
 " fold設定
@@ -496,24 +537,6 @@ hi TabLineFill term=reverse cterm=reverse ctermfg=black ctermbg=white
 
 "let php_folding=1
 "au Syntax php set fdm=syntax
-
-
-
-"--------------------------------------------------------------------
-" php lint
-"--------------------------------------------------------------------
-function! PHPLint()
-    set laststatus=2
-    set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']['.&ft.']'}\ %{b:status}%=%l,%c%V%8P
-    au BufEnter * let b:status = ""
-    let b:status=substitute(system("php -l " . bufname("%")), '\n', " ", "g")[:70]
-    if stridx(b:status, 'Parse error') == -1
-        highlight StatusLine   term=NONE cterm=NONE ctermfg=white ctermbg=black
-    else
-        highlight StatusLine   term=NONE cterm=NONE ctermfg=red ctermbg=black
-    endif
-endfunction
-autocmd BufWritePost *.php call PHPLint()
 
 
 "--------------------------------------------------------------------
@@ -543,4 +566,3 @@ if filereadable(expand('~/.vimrc.local'))
 	source ~/.vimrc.local
 endif
 
-let g:NERDTreeWinSize=70
