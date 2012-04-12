@@ -150,21 +150,27 @@ autocmd FileType php,html let g:surround_71 = "_(\"\r\")" " 71 = G
 "---------------------------------------------------------------------
 " vim-neocomplcache
 "---------------------------------------------------------------------
-" enable
+"enable
 let g:neocomplcache_enable_at_startup = 1
-" smarrt case有効化。 大文字が入力されるまで大文字小文字の区別を無視する
+"smarrt case有効化。 大文字が入力されるまで大文字小文字の区別を無視する
 let g:neocomplcache_enable_smart_case = 1
-" camle caseを有効化。大文字を区切りとしたワイルドカードのように振る舞う
+"camle caseを有効化。大文字を区切りとしたワイルドカードのように振る舞う
 let g:neocomplcache_enable_camel_case_completion = 1
-" _(アンダーバー)区切りの補完を有効化
+"_(アンダーバー)区切りの補完を有効化
 let g:neocomplcache_enable_underbar_completion = 1
-" シンタックスをキャッシュするときの最小文字長を3に
+"シンタックスをキャッシュするときの最小文字長を3に
 let g:neocomplcache_min_syntax_length = 3
-" neocomplcacheを自動的にロックするバッファ名のパターン
+"neocomplcacheを自動的にロックするバッファ名のパターン
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-" 補完候補の一番先頭を選択状態にする(AutoComplPopと似た動作)
+"補完候補の一番先頭を選択状態にする(AutoComplPopと似た動作)
 let g:neocomplcache_enable_auto_select = 1
 
+let g:neocomplcache_dictionary_filetype_lists = {
+  \ 'default'    : '',
+  \ 'php'        : $HOME . '/.vim/dict/php.dict',
+  \ 'javascript' : $HOME . '/.vim/dict/javascript.dict',
+  \ }
+  
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
@@ -173,6 +179,47 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType ruby set omnifunc=rubycomplete#Complete
+
+""改行で補完ウィンドウを閉じる
+""inoremap <expr><CR> neocomplcache#smart_close_popup() . "\<CR>"
+""inoremap <expr><CR> neocomplcache#close_popup() . "\<CR>"
+""tabで補完候補の選択を行う
+"inoremap <expr><TAB> pumvisible() ? "\<Down>" : "\<TAB>"
+"inoremap <expr><S-TAB> pumvisible() ? "\<Up>" : "\<S-TAB>"
+""C-h, BSで補完ウィンドウを確実に閉じる
+"inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+"inoremap <expr><BS> neocomplcache#smart_close_popup()."\<BS>"
+""C-yで補完候補の確定
+"inoremap <expr><C-y> neocomplcache#close_popup()
+""C-eで補完のキャンセルし、ウィンドウを閉じる。ポップアップが開いていないときはEndキー
+"inoremap <expr><C-e> pumvisible() ? neocomplcache#cancel_popup() : "\<End>"
+""C-gで補完を元に戻す
+""inoremap <expr><C-g> neocomplcache#undo_completion()
+""vim標準のキーワード補完を置き換える
+"inoremap <expr><C-n> neocomplcache#manual_keyword_complete()
+""オムニ補完の手動呼び出し
+"inoremap <expr><C-Space> neocomplcache#manual_omni_complete()
+ 
+""スニペットファイルを編集する
+"nnoremap <Space>nes :NeoComplCacheEditSnippets
+ 
+""インクルード補完。よくわからない。初期化のみに留める
+""通常は設定する必要はないらしい。
+""Vim標準のインクルード補完を模倣しているそうなので、そちらを勉強する
+"if !exists('g:neocomplcache_include_paths')
+    "let g:neocomplcache_include_paths = {}
+"endif
+"if !exists('g:neocomplcache_include_patterns')
+    "let g:neocomplcache_include_patterns = {}
+"endif
+""if !exists('g:neocomplcache_ctags_arguments_list')
+    ""let g:neocomplcache_ctags_arguments_list = {}
+""endif
+ 
+""ctagsの引数
+""let g:neocomplcache_ctags_arguments_list = {
+  ""\ 'php' : '-R --languages=PHP --langmap=PHP:.php.inc --php-types=c+f+d'
+  ""\ }
 
 
 "---------------------------------------------------------------------
@@ -202,11 +249,11 @@ if match(system("uname"),'Darwin') != -1
     command! -bar ArStop silent AllBrowserReloadStop
 endif
 
+
 "---------------------------------------------------------------------
 " vim-js-jquery
 "---------------------------------------------------------------------
 au BufRead,BufNewFile *.js set ft=javascript syntax=jquery
-
 
 
 "-------------------------------------------------------------------------------
@@ -233,6 +280,7 @@ nnoremap <silent> <leader>ua :<C-u>UniteWithBufferDir -buffer-name=files buffer 
 au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
 au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
 " ウィンドウを縦に分割して開く
+call unite#set_substitute_pattern('file', '\$\w\+', '\=eval(submatch(0))', 200)
 au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
 au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
 " ESCキーを2回押すと終了する
@@ -256,7 +304,7 @@ endif
 
 " yank履歴を\gyで扱える
 let g:unite_source_history_yank_enable =1  "history/yankの有効化
-nnoremap <silent>gy :<C-u>Unite history/yank<CR>
+nnoremap <silent>uy :<C-u>Unite history/yank<CR>
 
 " /Volumeが無視されていたので追記
 let g:unite_source_file_mru_ignore_pattern = '\~$\|\.\%(o\|exe\|dll\|bak\|sw[po]\)$\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\)'
@@ -305,8 +353,6 @@ filetype plugin indent on
 
 " \pで貼付け
 inoremap <Leader>p <ESC>pi
-" 挿入モードでCtrl+kを押すとクリップボードの内容を貼り付けられるようにする "
-imap <C-K>  <ESC>"*pa
 
 " 移動をラクに
 map 1k 10k
@@ -349,8 +395,8 @@ endif
 "入力モード時、ステータスラインのカラーを変更
 augroup InsertHook
 autocmd!
-autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340
-autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
+autocmd InsertEnter * highlight StatusLine ctermfg=black ctermbg=118
+autocmd InsertLeave * highlight StatusLine ctermfg=black ctermbg=white
 augroup END
 
 function! GetB()
@@ -475,7 +521,15 @@ function! RTrim()
 endfunction
 autocmd BufWritePre *.php,*.rb,*.js,*.bat call RTrim()
 
-    
+function! IfSmartyFileType()
+	let s:path = expand("%:p")
+	if stridx(s:path, "template") != -1 || stridx(s:path, "tpl") != -1
+		set ft=smarty
+	endif
+endfunction
+autocmd BufRead,BufNewFile *.html call IfSmartyFileType()
+
+ 
 "-------------------------------------------------------------------------------
 " タブ設定
 "-------------------------------------------------------------------------------
@@ -565,4 +619,5 @@ autocmd FileType php,html,javascript,css,javascript.titanium setlocal includeexp
 if filereadable(expand('~/.vimrc.local'))
 	source ~/.vimrc.local
 endif
+
 
