@@ -2,11 +2,8 @@
 " 覚えるショートカット
 "--------------------------------------------------------------------
 "#|----- common -----
-"#|:Rv    vimrcを反映
 "#|Ctrl+a 数字インクリメント
 "#|Ctrl+x 数字デクリメント
-"#|noremap <SPACE>t :tabedit<Return>
-"#|nnoremap <SPACE>w :tabclose<Return>
 "\ta trinity all
 "\th leftnav taglist
 "\tj(F8) src exploer
@@ -28,15 +25,14 @@
 "#|\t=   =で整列
 "#|\acom コメントの整列
 "#|\tsp  空白で分割して均等に整列
+"#|\su   sudo
 "
 "--------------------------------------------------------------------
-" 覚えたショートカット
+" よく使う<leader>
 "--------------------------------------------------------------------
-"<F1>   一つ右のtabへ
-"<F2>   一つ左のtabへ
-"<F5>   ペーストモードon/off
-":Ev    vimrcを編集
-"
+"map <leader>su :e sudo:%<CR>
+"nmap <leader>crv :VCSRevert<CR>
+"nmap <leader>cb :VCSBlame<CR>
 
 
 "--------------------------------------------------------------------
@@ -59,6 +55,12 @@ noremap <Leader>to :noautocmd vimgrep /TODO/j **/*.rb **/*.js **/*.m **/*.m<CR>:
 " vim-pathogen
 "--------------------------------------------------------------------
 call pathogen#infect()
+
+
+"--------------------------------------------------------------------
+" vim-sudo
+"--------------------------------------------------------------------
+map <leader>su :e sudo:%<CR>
 
 
 "--------------------------------------------------------------------
@@ -94,12 +96,20 @@ hi DiffChange ctermfg=black ctermbg=159
 hi DiffDelete ctermfg=black ctermbg=254
 hi DiffText   ctermfg=black ctermbg=225
 nmap <leader>crv :VCSRevert<CR>
+nmap <leader>cb :VCSBlame<CR>
 
 
 "--------------------------------------------------------------------
 " vim-pathogen
 "--------------------------------------------------------------------
 call pathogen#infect()
+
+
+"--------------------------------------------------------------------
+" vim-snipmate
+"--------------------------------------------------------------------
+let g:snips_author = 'ryohongo'
+let g:snips_copy = 'CopyRight (c)'
 
 
 "--------------------------------------------------------------------
@@ -589,6 +599,12 @@ set guitablabel=%N:\ %{GuiTabLabel()}
 if match(system("uname"),'Darwin') != -1
     let $JS_CMD='node'
 endif
+
+
+"--------------------------------------------------------------------
+" xml lint
+"--------------------------------------------------------------------
+map <leader>xml :%!xmllint --format --recover --encode UTF-8 -<CR>
 
 
 "--------------------------------------------------------------------

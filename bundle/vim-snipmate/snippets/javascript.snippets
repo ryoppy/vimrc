@@ -63,6 +63,14 @@ snippet sn_typeof
 	if (typeof ${1:name} === "undefined") {
 		var $1 = {};
 	}
+# checked
+snippet sn_checked
+	var $thisp = $(this);
+	if ($thisp.attr('checked')) {
+		// checked
+	} else {
+		// unchecked
+	}
 # skeleton
 snippet sn_skeleton
 	
@@ -153,10 +161,10 @@ snippet sn_ready
 # sn_ajax
 snippet sn_ajax
 	$.ajax({
-		type: "${1:GET}",
-		url: "${2:/}",
-		dataType: "${3:json}",
-		success: function(result) {
+		type     : "${1:GET}",
+		url      : "${2:/}",
+		dataType : "${3:json}",
+		success  : function(result) {
 			${4}
 		}
 	});
@@ -219,8 +227,11 @@ snippet f
 # Self
 snippet self
 	var self = this;
+# thsip
+snippet $thisp
+	var $thisp = $(this);
 # Function
-snippet func
+snippet sn_func
 	/**
 	 * ${3}
 	 * 
@@ -230,7 +241,7 @@ snippet func
 		${3}
 	}
 # Function Closer
-snippet funcc
+snippet sn_func_colosure
 	/**
 	 * ${3}
 	 * 
@@ -243,7 +254,7 @@ snippet funcc
 		};
 	})();
 # FunctionObject
-snippet funco
+snippet sn_func_obj
 	/**
 	 * ${4}
 	 * 
@@ -253,7 +264,7 @@ snippet funco
 		${5}
 	}${3:,}
 # FunctionVar
-snippet funcv
+snippet sn_func_var
 	/**
 	 * ${3}
 	 * 
@@ -263,7 +274,7 @@ snippet funcv
 		${4}
 	};
 # FunctionAnonymous 
-snippet funca
+snippet sn_func_anonymous
 	(function() {
 		${1}
 	})();
