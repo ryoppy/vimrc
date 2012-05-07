@@ -44,6 +44,13 @@ map v( vi(
 map v' vi'
 map v" vi"
 
+":qをCtrl+qでできるように
+map <C-Q> <ESC>:q<CR>
+imap <C-Q> <ESC>:q<CR>
+
+set backupskip=/tmp/*,/private/tmp/*
+
+map <silent>r <ESC>:redraw!<CR>
 
 "--------------------------------------------------------------------
 " TODO List
@@ -72,8 +79,6 @@ nmap <leader>th :TrinityToggleTagList<CR>
 nmap <leader>tj :TrinityToggleSourceExplorer<CR>
 nmap <F8>       :TrinityToggleSourceExplorer<CR>
 nmap <leader>tl :TrinityToggleNERDTree<CR>
-let g:SrcExpl_updateTagsCmd = "ctags -R --languages=PHP --langmap=PHP:.php.inc --php-types=c+f+d -f ~/live_trunk_web/tags ~/live_trunk_web" 
-let g:SrcExpl_updateTagsKey = "<F9>"
 
 
 "--------------------------------------------------------------------
@@ -96,7 +101,7 @@ hi DiffChange ctermfg=black ctermbg=159
 hi DiffDelete ctermfg=black ctermbg=254
 hi DiffText   ctermfg=black ctermbg=225
 nmap <leader>crv :VCSRevert<CR>
-nmap <leader>cb :VCSBlame<CR>
+nnoremap <leader>cb  :VCSBlame<CR>
 
 
 "--------------------------------------------------------------------
@@ -627,3 +632,54 @@ if filereadable(expand('~/.vimrc.local'))
 endif
 
 
+" scpを簡単実行
+map <silent>scp <ESC>:call ScpUpload()<CR>
+
+function! ScpUpload()
+
+	if !exists("g:vim_scp_configs")
+		echo "Please setting g:configs."
+		return
+	endif
+
+	let configs = g:vim_scp_configs
+	let self_path = expand("%:p")
+
+	for key in keys(configs)
+		let config = configs[key]
+		let local_base_path = config['local_base_path']
+		if self_path =~ "^" . local_base_path
+			let target_config        = config
+			let target_project       = key
+			let target_relative_path = self_path[strlen(local_base_path):]
+		endif
+	endfor
+
+	if !exists("target_project")
+		echo "no projext match."
+		return
+	endif
+
+	let local_full_path  = target_config['local_base_path']  . target_relative_path
+	let remote_full_path = target_config['remote_base_path'] . target_relative_path
+
+	if self_path != local_full_path
+		echo "self_path is not local_full_path. expect is same."
+	endif
+
+	echo "local_full_path : " . local_full_path
+	echo "remote_full_path : " . remote_full_path
+
+	let tc = target_config
+	let cmd = printf('sh ~/bin/scp.sh %s %s %s %s %s %s', tc['host'], tc['user'], tc['pass'], tc['port'], local_full_path, remote_full_path)
+	echo cmd
+
+	let choice = confirm("Save changes?", "&Yes\n&No", 2)
+	if choice != 1
+		echo "Cencel."
+		return
+	endif
+
+	execute '!' . cmd
+
+endfunction
