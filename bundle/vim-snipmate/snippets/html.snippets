@@ -21,11 +21,11 @@ snippet divc
 snippet sn_coptright
 	Copyright &copy; <script>var d = new Date();var y = d.getFullYear();document.write(y);</script> ${1:name}. All Rights Reserved.
 snippet sn_h_css
-	<link type="text/css" rel="stylesheet" href="${1}.css" />${2}
+	<link rel="stylesheet" href="${1}.css">${2}
 snippet sn_h_js
-	<script type="text/javascript" src="${1}.js" charset="utf-8"></script>${2}
+	<script type="text/javascript" src="${1}.js"></script>${2}
 snippet sn_h_js_jquery
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js" charset="utf-8"></script>${2}
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>${2}
 snippet sn_h_skeleton_html5
 	<!DOCTYPE html>
 	<html>
@@ -39,18 +39,18 @@ snippet sn_h_skeleton_html5
 			<![endif]-->
 
 			<!-- view port -->
-			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 			<!-- Le fav and touch icons -->
 			<link rel="icon" type="image/png" href="/ico/favicon.png">
 			<link rel="shortcut icon"    type="image/x-icon" href="/ico/favicon.ico">
 
 			<!-- Open Graph Protocol -->
-			<meta property="og:title"     content="" />
-			<meta property="og:type"      content="" />
-			<meta property="og:url"       content="" />
-			<meta property="og:image"     content="" />
-			<meta property="og:site_name" content="" />
+			<meta property="og:title"     content="">
+			<meta property="og:type"      content="">
+			<meta property="og:url"       content="">
+			<meta property="og:image"     content="">
+			<meta property="og:site_name" content="">
 		</head>
 	<body>
 	${2}
@@ -116,21 +116,21 @@ snippet sn_social_button
 
 ################# phtmlスニペット#################
 snippet sn_p_css
-	<link rel="stylesheet" href="<?php echo $this->addFileHash('${1}') ?>" />
+	<link rel="stylesheet" href="<?php echo $this->addFileHash('${1}') ?>">
 	${2}
 snippet sn_p_js
-	<script href="<?php echo $this->addFileHash('${1}') ?>" /></script>
+	<script href="<?php echo $this->addFileHash('${1}') ?>"></script>
 	${2}
 ################# bootstrapスニペット#################
 snippet sn_b_skeleton
-	<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css" />
+	<link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css">
 
 	<div class="container">
 	    <div class="row">
 	        <div class="span6">
 	            ${2}
 	        </div>
-	        <div class="span10">
+	        <div class="span6">
 	            
 	        </div>
 	    </div>
