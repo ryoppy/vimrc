@@ -251,11 +251,11 @@ if match(system("uname"),'Darwin') != -1
     let g:returnAppFlag = 1
 
     "reload
-    command! -bar Cr silent ChromeReload
-    command! -bar Fr silent FirefoxReload
-    command! -bar Sr silent SafariReload
-    command! -bar Or silent OperaReload
-    command! -bar Ar silent AllBrowserReload
+    command! -bar Cr silent ChromeReload | redraw!
+    command! -bar Fr silent FirefoxReload | redraw!
+    command! -bar Sr silent SafariReload | redraw!
+    command! -bar Or silent OperaReload | redraw!
+    command! -bar Ar silent AllBrowserReload | redraw!
     "auto reload start
     command! -bar CrStart silent ChromeReloadStart
     command! -bar FrStart silent FirefoxReloadStart
@@ -268,6 +268,9 @@ if match(system("uname"),'Darwin') != -1
     command! -bar SrStop silent SafariReloadStop
     command! -bar OrStop silent OperaReloadStop
     command! -bar ArStop silent AllBrowserReloadStop
+
+    nnoremap <SPACE>r :Fr<Return>
+
 endif
 
 
@@ -637,55 +640,3 @@ if filereadable(expand('~/.vimrc.local'))
 	source ~/.vimrc.local
 endif
 
-
-" scpを簡単実行
-map <silent>scp <ESC>:call ScpUpload()<CR>
-
-function! ScpUpload()
-
-	if !exists("g:vim_scp_configs")
-		echo "Please setting g:configs."
-		return
-	endif
-
-	let configs = g:vim_scp_configs
-	let self_path = expand("%:p")
-
-	for key in keys(configs)
-		let config = configs[key]
-		let local_base_path = config['local_base_path']
-		if self_path =~ "^" . local_base_path
-			let target_config        = config
-			let target_project       = key
-			let target_relative_path = self_path[strlen(local_base_path):]
-		endif
-	endfor
-
-	if !exists("target_project")
-		echo "no projext match."
-		return
-	endif
-
-	let local_full_path  = target_config['local_base_path']  . target_relative_path
-	let remote_full_path = target_config['remote_base_path'] . target_relative_path
-
-	if self_path != local_full_path
-		echo "self_path is not local_full_path. expect is same."
-	endif
-
-	echo "local_full_path : " . local_full_path
-	echo "remote_full_path : " . remote_full_path
-
-	let tc = target_config
-	let cmd = printf('sh ~/bin/scp.sh %s %s %s %s %s %s', tc['host'], tc['user'], tc['pass'], tc['port'], local_full_path, remote_full_path)
-	echo cmd
-
-	let choice = confirm("Save changes?", "&Yes\n&No", 2)
-	if choice != 1
-		echo "Cencel."
-		return
-	endif
-
-	execute '!' . cmd
-
-endfunction

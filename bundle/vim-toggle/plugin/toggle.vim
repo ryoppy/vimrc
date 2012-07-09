@@ -217,6 +217,16 @@ function! Toggle() "{{{
             let s:wordUnderCursor_tmp = "on"
             let s:toggleDone = 1
 
+        elseif (s:wordUnderCursor ==? "public")
+            let s:wordUnderCursor_tmp = "protected"
+            let s:toggleDone = 1
+        elseif (s:wordUnderCursor ==? "protected")
+            let s:wordUnderCursor_tmp = "private"
+            let s:toggleDone = 1
+        elseif (s:wordUnderCursor ==? "private")
+            let s:wordUnderCursor_tmp = "public"
+            let s:toggleDone = 1
+
         elseif (s:wordUnderCursor ==? "yes")
             let s:wordUnderCursor_tmp = "no"
             let s:toggleDone = 1

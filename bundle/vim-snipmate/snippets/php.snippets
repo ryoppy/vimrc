@@ -117,19 +117,19 @@ snippet t
 	$this->${1}
 # d
 snippet d
-	var_dump(${1});${2}
+	var_dump(${1});
 # e
 snippet e
-	exit;${1}
-# de
-snippet de
-	var_dump(${1});exit;${2}
-# throw
-snippet throw
-	throw new Exception(sprintf('${1}', ${2}));${3}
+	exit;
+# f
+snippet f
+	function
 # r
 snippet r
-	return ${1};
+	return ${1}
+# throw
+snippet throw
+	throw new Exception(sprintf('${1}', ${2}));
 ################# スニペット #################
 snippet php
 	<?php

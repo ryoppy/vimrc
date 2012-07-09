@@ -2738,10 +2738,10 @@ if g:NERDCreateDefaultMappings
 	"call s:CreateMaps('<plug>NERDCommenterYank',       '<leader>cy')
     "call s:CreateMaps('<plug>NERDCommenterAlignLeft',  '<leader>cl')
     "call s:CreateMaps('<plug>NERDCommenterAlignBoth',  '<leader>cb')
-    call s:CreateMaps('<plug>NERDCommenterNest',       '<leader>cn')
-	call s:CreateMaps('<plug>NERDCommenterUncomment',  '<leader>cu')
+    "call s:CreateMaps('<plug>NERDCommenterNest',       '<leader>cn')
+	"call s:CreateMaps('<plug>NERDCommenterUncomment',  '<leader>cu')
     "call s:CreateMaps('<plug>NERDCommenterToEOL',      '<leader>c$')
-    call s:CreateMaps('<plug>NERDCommenterAppend',     '<leader>cA')
+    "call s:CreateMaps('<plug>NERDCommenterAppend',     '<leader>cA')
 
     if !hasmapto('<plug>NERDCommenterAltDelims', 'n')
         nmap <leader>ca <plug>NERDCommenterAltDelims
