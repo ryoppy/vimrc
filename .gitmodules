@@ -4,3 +4,9 @@
 [submodule "bundle/vim-phplint"]
 	path = bundle/vim-phplint
 	url = git://github.com/Jonty/phplint.vim.git
+[submodule "bundle/vim-scp-upload"]
+	path = bundle/vim-scp-upload
+	url = git://github.com/ryoppy/vim-scp-upload.git
+[submodule "bundle/vim-remote-phpunit"]
+	path = bundle/vim-remote-phpunit
+	url = git://github.com/ryoppy/vim-remote-phpunit.git

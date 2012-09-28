@@ -634,6 +634,12 @@ autocmd FileType php,html,javascript,css,javascript.titanium setlocal includeexp
 
 
 "--------------------------------------------------------------------
+" 編集中のをリネームできる
+"--------------------------------------------------------------------
+command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)
+
+
+"--------------------------------------------------------------------
 " それぞれの環境ごとの設定 (git管理外)
 "--------------------------------------------------------------------
 if filereadable(expand('~/.vimrc.local'))
