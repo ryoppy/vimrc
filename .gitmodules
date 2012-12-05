@@ -10,3 +10,6 @@
 [submodule "bundle/vim-remote-phpunit"]
 	path = bundle/vim-remote-phpunit
 	url = git://github.com/ryoppy/vim-remote-phpunit.git
+[submodule "bundle/vim-proc"]
+	path = bundle/vim-proc
+	url = git://github.com/Shougo/vimproc.git
