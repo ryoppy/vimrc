@@ -1,9 +1,6 @@
 [submodule "bundle/vim-memolist"]
 	path = bundle/vim-memolist
 	url = git://github.com/glidenote/memolist.vim.git
-[submodule "bundle/vim-phplint"]
-	path = bundle/vim-phplint
-	url = git://github.com/Jonty/phplint.vim.git
 [submodule "bundle/vim-scp-upload"]
 	path = bundle/vim-scp-upload
 	url = git://github.com/ryoppy/vim-scp-upload.git
@@ -13,3 +10,6 @@
 [submodule "bundle/vim-proc"]
 	path = bundle/vim-proc
 	url = git://github.com/Shougo/vimproc.git
+[submodule "bundle/vim-phplint"]
+	path = bundle/vim-phplint
+	url = git://github.com/Jonty/phplint.vim.git
