@@ -73,65 +73,46 @@ snippet sn_checked
 	}
 # skeleton
 snippet sn_skeleton
-	
-	/**
-	 * @module $1
-	 * @see https://github.com/yui/yui3/blob/master/build/yui/yui.js
-	 */
-	
-	/*global $1: true*/
+	var ${1:class} = function() {
+		this.initialize.apply(this, arguments);
+	};
 
-	/**
-	 * Project name is $1.
-	 * 
-	 * @namespace $1
-	 */
-	if (typeof $1 === "undefined") {
-		var ${1:namespace} = function() {};
-	}
-	
-	/**
-	 * This class is ${3}.
-	 * 
-	 * @class $1.${2:class}
-	 */
-	$1.$2 = function() {
-		this.init();
-	};
-	
-	$1.$2.prototype = {
+	$1.prototype = {
+
 		/**
-		 * Initialize
-		 * 
-		 * @constructor
-		 * @method init
+		 * Constructor
 		 */
-		init: function() {
-			${4}
+		initialize : function()
+		{
+			this.$sample = $('#sample');
+			this.bind();
+		},
+
+		/**
+		 * 各種イベント付与
+		 */
+		bind : function()
+		{
+			var self = this;
+
+			// サンプルのクリックイベント
+			this.$sample.click(function(e) {
+				self.sample.apply(self, arguments);
+				return false;
+			});
+		},
+
+		/**
+		 * 
+		 */
+		sample : function(e)
+		{
 		}
 	};
-# class
-snippet sn_class
-	/**
-	 * This class is ${3}.
-	 * 
-	 * @class ${1:namespace}.${2:class}
-	 */
-	$1.$2 = function() {
-		this.init();
-	};
-	
-	$1.$2.prototype = {
-		/**
-		 * Initialize
-		 * 
-		 * @constructor
-		 * @method init
-		 */
-		init: function() {
-			${4}
-		}
-	};
+
+	$(function() {
+		var instance = new $1();
+	});
 # extend
 snippet sn_extend
 	/**
