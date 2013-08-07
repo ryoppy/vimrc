@@ -4,10 +4,6 @@
 "#|----- common -----
 "#|Ctrl+a 数字インクリメント
 "#|Ctrl+x 数字デクリメント
-"\ta trinity all
-"\th leftnav taglist
-"\tj(F8) src exploer
-"\tl NERDTree
 "
 "Ctrl-w-+ : ウインド拡大
 "
@@ -68,17 +64,6 @@ call pathogen#infect()
 " vim-sudo
 "--------------------------------------------------------------------
 map <leader>su :e sudo:%<CR>
-
-
-"--------------------------------------------------------------------
-" vim-trinity
-" vim-srcexpl
-"--------------------------------------------------------------------
-nmap <leader>ta :TrinityToggleAll<CR>
-nmap <leader>th :TrinityToggleTagList<CR>
-nmap <leader>tj :TrinityToggleSourceExplorer<CR>
-nmap <F8>       :TrinityToggleSourceExplorer<CR>
-nmap <leader>tl :TrinityToggleNERDTree<CR>
 
 
 "--------------------------------------------------------------------
@@ -484,9 +469,9 @@ nmap <Esc><Esc> :nohlsearch<CR><Esc>
 set list
 
 "tabが対応する空白の数
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 set expandtab
 
 "listで表示される文字のフォーマットを指定する
@@ -515,7 +500,7 @@ set clipboard=unnamed,autoselect
 hi CursorIM  guifg=black  guibg=red  gui=NONE  ctermfg=black  ctermbg=white  cterm=reverse
 
 "ペーストモードのON/OFF
-set pastetoggle=<F5> 
+set pastetoggle=<SPACE>p
 
 
 "-------------------------------------------------------------------------------
@@ -559,9 +544,11 @@ autocmd BufRead,BufNewFile *.html call IfSmartyFileType()
 "-------------------------------------------------------------------------------
 " ショートカット
 nnoremap <SPACE>t :tabedit<Return>
-nnoremap <SPACE>w :tabclose<Return>
+"nnoremap <SPACE>w :tabclose<Return>
 nnoremap <F2>     :tabn<Return>
 nnoremap <F1>     :tabprevious<Return>
+nnoremap <SPACE>q :tabn<Return>
+nnoremap <SPACE>w :tabprevious<Return>
 
 set showtabline=4
 
