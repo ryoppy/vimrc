@@ -48,6 +48,8 @@ set backupskip=/tmp/*,/private/tmp/*
 
 map <silent>r <ESC>:redraw!<CR>
 
+noremap <SPACE>b :!ruby %<CR>
+
 "--------------------------------------------------------------------
 " TODO List
 "--------------------------------------------------------------------
@@ -58,12 +60,6 @@ noremap <Leader>to :noautocmd vimgrep /TODO/j **/*.rb **/*.js **/*.m **/*.m<CR>:
 " vim-pathogen
 "--------------------------------------------------------------------
 call pathogen#infect()
-
-
-"--------------------------------------------------------------------
-" vim-sudo
-"--------------------------------------------------------------------
-map <leader>su :e sudo:%<CR>
 
 
 "--------------------------------------------------------------------
@@ -91,14 +87,13 @@ hi DiffAdd    ctermfg=black ctermbg=154
 hi DiffChange ctermfg=black ctermbg=159
 hi DiffDelete ctermfg=black ctermbg=254
 hi DiffText   ctermfg=black ctermbg=225
+
+hi DiffAdd    ctermfg=black ctermbg=2
+hi DiffChange ctermfg=black ctermbg=3
+hi DiffDelete ctermfg=black ctermbg=6
+hi DiffText   ctermfg=black ctermbg=7
 nmap <leader>crv :VCSRevert<CR>
 nnoremap <leader>cb  :VCSBlame<CR>
-
-
-"--------------------------------------------------------------------
-" vim-pathogen
-"--------------------------------------------------------------------
-call pathogen#infect()
 
 
 "--------------------------------------------------------------------
@@ -500,7 +495,7 @@ set clipboard=unnamed,autoselect
 hi CursorIM  guifg=black  guibg=red  gui=NONE  ctermfg=black  ctermbg=white  cterm=reverse
 
 "ペーストモードのON/OFF
-set pastetoggle=<SPACE>p
+set pastetoggle=<F5>
 
 
 "-------------------------------------------------------------------------------
@@ -609,12 +604,6 @@ map <leader>xml :%!xmllint --format --recover --encode UTF-8 -<CR>
 
 
 "--------------------------------------------------------------------
-" たまにshがうまくセットされないので
-"--------------------------------------------------------------------
-nnoremap <silent> <leader>sh :set ft=sh<Return>
-
-
-"--------------------------------------------------------------------
 " /js/test.jsをgfで開けるように
 "--------------------------------------------------------------------
 autocmd FileType php,html,javascript,css,javascript.titanium setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=;/
@@ -632,4 +621,3 @@ command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'),
 if filereadable(expand('~/.vimrc.local'))
 	source ~/.vimrc.local
 endif
-
