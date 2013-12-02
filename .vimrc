@@ -1,5 +1,5 @@
 "--------------------------------------------------------------------
-" 覚えるショートカット
+
 "--------------------------------------------------------------------
 "#|----- common -----
 "#|Ctrl+a 数字インクリメント
@@ -46,10 +46,6 @@ imap <C-Q> <ESC>:q<CR>
 
 set backupskip=/tmp/*,/private/tmp/*
 
-map <silent>r <ESC>:redraw!<CR>
-
-noremap <SPACE>b :!ruby %<CR>
-
 "--------------------------------------------------------------------
 " TODO List
 "--------------------------------------------------------------------
@@ -79,34 +75,10 @@ map <Leader>mg  :MemoGrep<CR>
 
 
 "--------------------------------------------------------------------
-" vim-subversion
-"--------------------------------------------------------------------
-" color調整
-" http://d.hatena.ne.jp/kakurasan/20080703
-hi DiffAdd    ctermfg=black ctermbg=154
-hi DiffChange ctermfg=black ctermbg=159
-hi DiffDelete ctermfg=black ctermbg=254
-hi DiffText   ctermfg=black ctermbg=225
-
-hi DiffAdd    ctermfg=black ctermbg=2
-hi DiffChange ctermfg=black ctermbg=3
-hi DiffDelete ctermfg=black ctermbg=6
-hi DiffText   ctermfg=black ctermbg=7
-nmap <leader>crv :VCSRevert<CR>
-nnoremap <leader>cb  :VCSBlame<CR>
-
-
-"--------------------------------------------------------------------
 " vim-snipmate
 "--------------------------------------------------------------------
 let g:snips_author = 'ryohongo'
 let g:snips_copy = 'CopyRight (c)'
-
-
-"--------------------------------------------------------------------
-" vim-template
-"--------------------------------------------------------------------
-autocmd User plugin-template-loaded silent! :%!php
 
 
 "--------------------------------------------------------------------
@@ -115,37 +87,6 @@ autocmd User plugin-template-loaded silent! :%!php
 imap <C-G> <C-O>:call Toggle()<CR>
 nmap <C-G> :call Toggle()<CR>
 vmap <C-G> <ESC>:call Toggle()<CR>
-
-
-"--------------------------------------------------------------------
-" vim-template
-"--------------------------------------------------------------------
-autocmd User plugin-template-loaded silent! :%!php
-
-
-"--------------------------------------------------------------------
-" vim-css-color
-"--------------------------------------------------------------------
-let g:cssColorVimDoNotMessMyUpdatetime = 1
-
-
-"--------------------------------------------------------------------
-" vim-zencoding
-"--------------------------------------------------------------------
-let g:user_zen_settings = { 'indentation':'    ' }
-
-
-"--------------------------------------------------------------------
-" vim-surround
-"--------------------------------------------------------------------
-" 選択Sp = <?php *** ?>
-autocmd FileType php,html let b:surround_112 = "<?php \r ?>"
-
-" 選択Sg = _('***')
-autocmd FileType php,html let g:surround_103 = "_('\r')"  " 103 = g
-
-" 選択SG = _("***")
-autocmd FileType php,html let g:surround_71 = "_(\"\r\")" " 71 = G
 
 
 "---------------------------------------------------------------------
@@ -180,84 +121,6 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType ruby set omnifunc=rubycomplete#Complete
-
-""改行で補完ウィンドウを閉じる
-""inoremap <expr><CR> neocomplcache#smart_close_popup() . "\<CR>"
-""inoremap <expr><CR> neocomplcache#close_popup() . "\<CR>"
-""tabで補完候補の選択を行う
-"inoremap <expr><TAB> pumvisible() ? "\<Down>" : "\<TAB>"
-"inoremap <expr><S-TAB> pumvisible() ? "\<Up>" : "\<S-TAB>"
-""C-h, BSで補完ウィンドウを確実に閉じる
-"inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-"inoremap <expr><BS> neocomplcache#smart_close_popup()."\<BS>"
-""C-yで補完候補の確定
-"inoremap <expr><C-y> neocomplcache#close_popup()
-""C-eで補完のキャンセルし、ウィンドウを閉じる。ポップアップが開いていないときはEndキー
-"inoremap <expr><C-e> pumvisible() ? neocomplcache#cancel_popup() : "\<End>"
-""C-gで補完を元に戻す
-""inoremap <expr><C-g> neocomplcache#undo_completion()
-""vim標準のキーワード補完を置き換える
-"inoremap <expr><C-n> neocomplcache#manual_keyword_complete()
-""オムニ補完の手動呼び出し
-"inoremap <expr><C-Space> neocomplcache#manual_omni_complete()
- 
-""スニペットファイルを編集する
-"nnoremap <Space>nes :NeoComplCacheEditSnippets
- 
-""インクルード補完。よくわからない。初期化のみに留める
-""通常は設定する必要はないらしい。
-""Vim標準のインクルード補完を模倣しているそうなので、そちらを勉強する
-"if !exists('g:neocomplcache_include_paths')
-    "let g:neocomplcache_include_paths = {}
-"endif
-"if !exists('g:neocomplcache_include_patterns')
-    "let g:neocomplcache_include_patterns = {}
-"endif
-""if !exists('g:neocomplcache_ctags_arguments_list')
-    ""let g:neocomplcache_ctags_arguments_list = {}
-""endif
- 
-""ctagsの引数
-""let g:neocomplcache_ctags_arguments_list = {
-  ""\ 'php' : '-R --languages=PHP --langmap=PHP:.php.inc --php-types=c+f+d'
-  ""\ }
-
-
-"---------------------------------------------------------------------
-" vim-browsereload-mac
-"---------------------------------------------------------------------
-if match(system("uname"),'Darwin') != -1
-    let g:returnApp = "Terminal"
-    let g:returnAppFlag = 1
-
-    "reload
-    command! -bar Cr silent ChromeReload | redraw!
-    command! -bar Fr silent FirefoxReload | redraw!
-    command! -bar Sr silent SafariReload | redraw!
-    command! -bar Or silent OperaReload | redraw!
-    command! -bar Ar silent AllBrowserReload | redraw!
-    "auto reload start
-    command! -bar CrStart silent ChromeReloadStart
-    command! -bar FrStart silent FirefoxReloadStart
-    command! -bar SrStart silent SafariReloadStart
-    command! -bar OrStart silent OperaReloadStart
-    command! -bar ArStart silent AllBrowserReloadStart
-    "auto reload stop
-    command! -bar CrStop silent ChromeReloadStop
-    command! -bar FrStop silent FirefoxReloadStop
-    command! -bar SrStop silent SafariReloadStop
-    command! -bar OrStop silent OperaReloadStop
-    command! -bar ArStop silent AllBrowserReloadStop
-
-    nnoremap <SPACE>r :Fr<Return>
-
-endif
-
-
-"---------------------------------------------------------------------
-" vim-js-jquery
-"---------------------------------------------------------------------
-au BufRead,BufNewFile *.js set ft=javascript syntax=jquery
 
 
 "-------------------------------------------------------------------------------
@@ -595,12 +458,6 @@ set guitablabel=%N:\ %{GuiTabLabel()}
 if match(system("uname"),'Darwin') != -1
     let $JS_CMD='node'
 endif
-
-
-"--------------------------------------------------------------------
-" xml lint
-"--------------------------------------------------------------------
-map <leader>xml :%!xmllint --format --recover --encode UTF-8 -<CR>
 
 
 "--------------------------------------------------------------------
