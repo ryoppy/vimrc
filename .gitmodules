@@ -13,3 +13,9 @@
 [submodule "bundle/vim-over"]
 	path = bundle/vim-over
 	url = https://github.com/osyo-manga/vim-over.git
+[submodule "bundle/vim-coffee-script"]
+	path = bundle/vim-coffee-script
+	url = https://github.com/kchmck/vim-coffee-script.git
+[submodule "bundle/vim-stylus"]
+	path = bundle/vim-stylus
+	url = https://github.com/wavded/vim-stylus.git
