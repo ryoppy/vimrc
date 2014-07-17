@@ -4,3 +4,12 @@
 [submodule "vim-stylus"]
 	path = vim-stylus
 	url = git@github.com:wavded/vim-stylus.git
+[submodule "bundle/vim-proc"]
+	path = bundle/vim-proc
+	url = git://github.com/Shougo/vimproc.git
+[submodule "bundle/vim-phplint"]
+	path = bundle/vim-phplint
+	url = git://github.com/Jonty/phplint.vim.git
+[submodule "bundle/vim-over"]
+	path = bundle/vim-over
+	url = https://github.com/osyo-manga/vim-over.git
