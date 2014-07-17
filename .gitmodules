@@ -1,27 +1,6 @@
-[submodule "bundle/vim-memolist"]
-	path = bundle/vim-memolist
-	url = git://github.com/glidenote/memolist.vim.git
-[submodule "bundle/vim-scp-upload"]
-	path = bundle/vim-scp-upload
-	url = git://github.com/ryoppy/vim-scp-upload.git
-[submodule "bundle/vim-remote-phpunit"]
-	path = bundle/vim-remote-phpunit
-	url = git://github.com/ryoppy/vim-remote-phpunit.git
-[submodule "bundle/vim-proc"]
-	path = bundle/vim-proc
-	url = git://github.com/Shougo/vimproc.git
-[submodule "bundle/vim-phplint"]
-	path = bundle/vim-phplint
-	url = git://github.com/Jonty/phplint.vim.git
-[submodule "bundle/vim-ruby"]
-	path = bundle/vim-ruby
-	url = git://github.com/vim-ruby/vim-ruby.git
-[submodule "bundle/vim-elixir"]
-	path = bundle/vim-elixir
-	url = https://github.com/elixir-lang/vim-elixir.git
-[submodule "bundle/vim-scala"]
-	path = bundle/vim-scala
-	url = https://github.com/derekwyatt/vim-scala.git
-[submodule "bundle/vim-erlang"]
-	path = bundle/vim-erlang
-	url = https://github.com/jimenezrick/vimerl.git
+[submodule "vim-coffee-script"]
+	path = vim-coffee-script
+	url = git@github.com:kchmck/vim-coffee-script.git
+[submodule "vim-stylus"]
+	path = vim-stylus
+	url = git@github.com:wavded/vim-stylus.git
