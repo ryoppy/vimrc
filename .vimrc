@@ -10,19 +10,19 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Plugins
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neomru.vim'     " uniteでhistory開くのに必要
-NeoBundle 'Shougo/neocomplete'    " 補完
-NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/unite.vim'      " Filer
+NeoBundle 'Shougo/neomru.vim'     " dep:unite
+NeoBundle 'Shougo/neocomplete'    " Complement
+NeoBundle 'Shougo/neosnippet'     " Snippet
+NeoBundle 'Shougo/vimproc.vim', {'build': {'others': 'make'}} " dep:unite grep, async, etc..
 NeoBundle 'Align'
 NeoBundle 'tpope/vim-surround'
-NeoBundle 'taku-o/vim-toggle'
-NeoBundle 'itchyny/lightline.vim' " Statusバーを見やすく
+NeoBundle 'taku-o/vim-toggle'     " turn true/false, ++, --
+NeoBundle 'itchyny/lightline.vim' " Powerful status bar
 NeoBundle 'tpope/vim-fugitive'    " Git
 " >Languages
 NeoBundle 'vim-coffee-script'
 NeoBundle 'vim-stylus'
-NeoBundle 'vim-scala'
 
 call neobundle#end()
 filetype plugin indent on
@@ -35,7 +35,16 @@ NeoBundleCheck
 " export TERM=xterm-256color
 let g:lightline = {
       \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [['mode', 'paste'], ['fugitive', 'readonly', 'filename', 'modified']]
+      \ },
+      \ 'component_function': {
+      \   'fugitive': 'MyFugitive'
       \ }
+      \ }
+function! MyFugitive()
+  return exists('*fugitive#head') ? fugitive#head() : ''
+endfunction
 
 
 "--------------------------------------------------------------------
@@ -45,7 +54,11 @@ imap <C-G> <C-O>:call Toggle()<CR>
 nmap <C-G> :call Toggle()<CR>
 vmap <C-G> <ESC>:call Toggle()<CR>
 
-let g:neosnippet#snippets_directory = '~/.vim/snippets' 
+
+"--------------------------------------------------------------------
+" vim-neosnippet
+"--------------------------------------------------------------------
+let g:neosnippet#snippets_directory = '~/.vim/snippets'
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -63,6 +76,7 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
+
 
 "---------------------------------------------------------------------
 " vim-neocomplte
@@ -127,11 +141,18 @@ nnoremap <silent> [unite]f  :<C-u>UniteWithCurrentDir -buffer-name=files file fi
 nnoremap <silent> [unite]h  :<C-u>Unite file_mru<CR>
 " snippet一覧
 nnoremap <silent> [unite]s  :<C-u>Unite snippet<CR>
+" ファイル名検索
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+nnoremap <silent> [unite]d  :<C-u>Unite file_rec<CR>
+" grep
+nnoremap <silent> [unite]g  :<C-u>Unite grep<CR>
 
 " ショートカット
 map <Space>f :tabedit<CR>[unite]f
 map <Space>h :tabedit<CR>[unite]h
 map <Space>s :tabedit<CR>[unite]s
+map <Space>d :tabedit<CR>[unite]d
+map <Space>g :tabedit<CR>[unite]g
 
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()"{{{
@@ -232,6 +253,14 @@ map 2j 20j
 map 2hj 20h
 map 2l 20l
 
+" insert mode での移動
+imap <C-e> <END>
+imap <C-a> <HOME>
+imap <C-j> <Down>
+imap <C-k> <Up>
+imap <C-h> <Left>
+imap <C-l> <Right>
+
 " Ctrl+sで保存, Ctrl+qで閉じ
 nnoremap <C-S> :w<CR>
 inoremap <C-S> <ESC>:w<CR>
@@ -242,8 +271,11 @@ inoremap <C-Q> <ESC>:q<CR>
 set fileformats=unix,dos,mac
 " □とか○の文字があってもカーソル位置がずれないようにする
 if exists('&ambiwidth')
-    set ambiwidth=double
+  set ambiwidth=double
 endif
+
+" 行末のスペース削除
+autocmd BufWritePre * :%s/\s\+$//e
 
 "-------------------------------------------------------------------------------
 " タブ設定
