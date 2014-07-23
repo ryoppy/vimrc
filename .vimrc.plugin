@@ -1,0 +1,153 @@
+"--------------------------------------------------------------------
+" vim-lightline
+"--------------------------------------------------------------------
+" export TERM=xterm-256color
+let g:lightline = {
+\   'colorscheme': 'wombat',
+\   'active': {
+\     'left': [['mode', 'paste'], ['fugitive', 'readonly', 'filename', 'modified']]
+\   },
+\   'component_function': {
+\     'fugitive': 'MyFugitive'
+\   }
+\ }
+function! MyFugitive()
+  return exists('*fugitive#head') ? fugitive#head() : ''
+endfunction
+
+
+"--------------------------------------------------------------------
+" vim-fugitive
+"--------------------------------------------------------------------
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>ga :Gwrite<CR>
+nnoremap <leader>gc :Gcommit -a<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gr :Gread<CR>
+
+"--------------------------------------------------------------------
+" vim-toggle
+"--------------------------------------------------------------------
+imap <C-G> <C-O>:call Toggle()<CR>
+nmap <C-G> :call Toggle()<CR>
+vmap <C-G> <ESC>:call Toggle()<CR>
+
+
+"--------------------------------------------------------------------
+" vim-neosnippet
+"--------------------------------------------------------------------
+let g:neosnippet#snippets_directory = '~/.vim/snippets'
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
+
+"---------------------------------------------------------------------
+" vim-neocomplte
+"---------------------------------------------------------------------
+let g:acp_enableAtStartup = 0
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 2
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : ''
+    \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+  let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+
+"---------------------------------------------------------------------
+" vim-unite:
+"---------------------------------------------------------------------
+nnoremap    [unite]   <Nop>
+nmap    <leader>u [unite]
+
+" ファイル一覧
+nnoremap <silent> [unite]f  :<C-u>UniteWithCurrentDir -buffer-name=files file file/new<CR>
+" 最近使用したファイル一覧
+nnoremap <silent> [unite]h  :<C-u>Unite file_mru<CR>
+" snippet一覧
+nnoremap <silent> [unite]s  :<C-u>Unite snippet<CR>
+" ファイル名検索
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+nnoremap <silent> [unite]d  :<C-u>Unite file_rec<CR>
+" grep
+nnoremap <silent> [unite]g  :<C-u>Unite grep<CR>
+
+" ショートカット
+map <Space>f :tabedit<CR>[unite]f
+map <Space>h :tabedit<CR>[unite]h
+map <Space>s :tabedit<CR>[unite]s
+map <Space>d :tabedit<CR>[unite]d
+map <Space>g :tabedit<CR>[unite]g
+
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings()"{{{
+  " Overwrite settings.
+
+  " ESCキーを2回押すと終了する
+  nmap <buffer> <ESC>      <Plug>(unite_exit)
+  nmap <buffer> <ESC><ESC> <Plug>(unite_exit)
+  imap <buffer> jj      <Plug>(unite_insert_leave)
+
+  nnoremap <silent><buffer> <C-k> :<C-u>call unite#mappings#do_action('preview')<CR>
+  imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
+endfunction"}}}
+
+call unite#custom#profile('default', 'context', {
+\  'start_insert': 1,
+\  'ignore_case': 1,
+\  'smart_case': 1
+\})
+

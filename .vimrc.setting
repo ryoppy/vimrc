@@ -1,0 +1,112 @@
+"---------------------------------------------------------------------
+" Configure
+"---------------------------------------------------------------------
+
+"------ basic ------
+set encoding=utf-8
+set nu
+syntax on
+
+" ビープ音off
+set noerrorbells
+
+" スクロール時の余白確保
+set scrolloff=5
+
+" スワップファイル作らない
+set noswapfile
+
+" コマンドをステータス行に表示
+set showcmd
+
+" 現在のモードを表示
+set showmode
+
+"共有のクリップボードを使用する
+set clipboard=unnamed,autoselect
+
+" 常にステータスラインを表示
+set laststatus=2
+
+"カーソルが何行目の何列目に置かれているかを表示する
+set ruler
+
+"バックスペースでindentを無視 & 改行を越えてバックスペースを許可
+set backspace=indent,eol,start
+
+"インクリメンタルサーチを行う
+set incsearch
+
+" 検索のハイライト
+set hlsearch
+nmap <Esc><Esc> :nohlsearch<CR><Esc>
+
+"タブ文字、行末など不可視文字を表示する
+set list
+
+"tabが対応する空白の数
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+
+"listで表示される文字のフォーマットを指定する
+set listchars=tab:>\ ,extends:<
+
+"検索時に大文字を含んでいたら大/小を区別
+set smartcase
+
+"新しい行を作ったときに高度な自動インデントを行う
+set smartindent
+
+"全角スペースを強調
+highlight zenkakuda ctermbg=7
+match zenkakuda /　/
+
+" \pで貼付け
+inoremap <Leader>p <ESC>pi
+
+" 移動をラクに
+map 1k 10k
+map 1j 10j
+map 1hj 10h
+map 1l 10l
+
+map 2k 20k
+map 2j 20j
+map 2hj 20h
+map 2l 20l
+
+" insert mode での移動
+imap <C-e> <END>
+imap <C-a> <HOME>
+imap <C-j> <Down>
+imap <C-k> <Up>
+imap <C-h> <Left>
+imap <C-l> <Right>
+
+" Ctrl+sで保存, Ctrl+qで閉じ
+nnoremap <C-S> :w<CR>
+inoremap <C-S> <ESC>:w<CR>
+nnoremap <C-Q> <ESC>:q<CR>
+inoremap <C-Q> <ESC>:q<CR>
+
+"改行コードの自動認識
+set fileformats=unix,dos,mac
+" □とか○の文字があってもカーソル位置がずれないようにする
+if exists('&ambiwidth')
+  set ambiwidth=double
+endif
+
+" 行末のスペース削除
+autocmd BufWritePre * :%s/\s\+$//e
+
+"-------------------------------------------------------------------------------
+" タブ設定
+"-------------------------------------------------------------------------------
+nnoremap <SPACE>t :tabedit<Return>
+nnoremap <F2>     :tabn<Return>
+nnoremap <F1>     :tabprevious<Return>
+
+set showtabline=4
+

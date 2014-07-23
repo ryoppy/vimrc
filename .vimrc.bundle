@@ -1,0 +1,31 @@
+"--------------------------------------------------------------------
+" vim-neobundle
+"--------------------------------------------------------------------
+if has('vim_starting')
+  set nocompatible
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+call neobundle#begin(expand('~/.vim/bundle/'))
+
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" Plugins
+NeoBundle 'Shougo/unite.vim'      " Filer
+NeoBundle 'sgur/unite-git_grep'   " Git grep
+NeoBundle 'Shougo/neomru.vim'     " dep:unite
+NeoBundle 'Shougo/neocomplete'    " Complement
+NeoBundle 'Shougo/neosnippet'     " Snippet
+NeoBundle 'Shougo/vimproc.vim', {'build': {'others': 'make'}} " dep:unite grep, async, etc..
+NeoBundle 'Align'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'taku-o/vim-toggle'     " turn true/false, ++, --
+NeoBundle 'itchyny/lightline.vim' " Powerful status bar
+NeoBundle 'tpope/vim-fugitive'    " Git
+" >Languages
+NeoBundle 'vim-coffee-script'
+NeoBundle 'vim-stylus'
+
+call neobundle#end()
+filetype plugin indent on
+NeoBundleCheck
+
