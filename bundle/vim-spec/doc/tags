@@ -1,7 +1,0 @@
-spec-customization	spec.txt	/*spec-customization*
-spec-features	spec.txt	/*spec-features*
-spec-history	spec.txt	/*spec-history*
-spec-macros	spec.txt	/*spec-macros*
-spec.txt	spec.txt	/*spec.txt*
-spec_chglog_format	spec.txt	/*spec_chglog_format*
-spec_chglog_prepend	spec.txt	/*spec_chglog_prepend*

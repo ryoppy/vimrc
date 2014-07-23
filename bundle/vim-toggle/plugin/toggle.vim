@@ -6,6 +6,9 @@
 " Date: 06 Feb 2004
 " Licence: GPL v2.0
 "
+" Author: (Forked) Taku Omi
+" Email: mail@nanasi.jp
+"
 " Usage:
 " Drop into your plugin directory, Pressing Control-T toggles
 " value under cursor in insert-mode. In normal/visual mode,
@@ -19,7 +22,7 @@
 "  >        <->     <
 "  define   <->     undef
 "  ||       <->     &&
-"  &&       <->     ||
+"  public   <->     private     <->     protected
 "
 "  If cursor is positioned on a number, the function looks for a + 
 "  or - sign in front of that number and toggels it. If the number
@@ -38,6 +41,14 @@
 "   in visual mode?
 "
 " Changelog:
+" v 0.5-forked, 21 November 2011
+"   - fix custom mapping logic.
+" v 0.5-forked, 21 June 2011
+"   - forked.
+"   - private,public,protected toggle changing is supported.
+"   - g:toggle_pairs option is added.
+"   - custom key map is supported.
+"   - fix <cword> problem. relace <cword> to strict function.
 " v 0.5, 15 September 2010
 "   - case insensitive toggling, keep case
 "   - Bugfix for && and ||
@@ -59,26 +70,46 @@
 " v0.1, 1 Feb 2004
 "   - first Version to be distributed... (not yet on vim.org)
 
-" if exists("loaded_toggle")
-"     finish
-" endif
-" let loaded_toggle=1
+if exists("loaded_toggle")
+    finish
+endif
+let loaded_toggle=1
 
 let s:save_cpo = &cpo
 set cpo&vim
 
-imap <C-T> <C-O>:call Toggle()<CR>
-nmap + :call Toggle()<CR>
-vmap + <ESC>:call Toggle()<CR>
+"--------------------------------------------------
+" set your custom mapping in your vimrc.
+"
+"   imap <C-C> <Plug>ToggleI
+"   nmap <C-C> <Plug>ToggleN
+"   vmap <C-C> <Plug>ToggleV
+"
+if !hasmapto('<Plug>ToggleI', 'i')
+    imap <C-T> <Plug>ToggleI
+endif
+inoremap <Plug>ToggleI <C-O>:call <SID>Toggle()<CR>
+
+if !hasmapto('<Plug>ToggleN', 'n')
+    nmap + <Plug>ToggleN
+endif
+nnoremap <Plug>ToggleN :<C-U>call <SID>Toggle()<CR>
+
+if !hasmapto('<Plug>ToggleV', 'v')
+    vmap + <Plug>ToggleV
+endif
+vnoremap <Plug>ToggleV <ESC>:call <SID>Toggle()<CR>
 
 "--------------------------------------------------
-" If you don't want to break the standard <C-T> assignments,
-" you could use these, or of course define your own ones...
-"
-" imap <C-M-T> <C-O>:call Toggle()<CR>
-" nmap <C-M-T> :call Toggle()<CR>
-" vmap <C-M-T> <ESC>:call Toggle()<CR>
+" optional toggle pair configuration
+" :let g:toggle_pairs = { 'and':'or', 'or':'and', 'if':'elsif', 'elsif':'else', 'else':'if' }
+if exists('g:toggle_pairs')
+    let s:toggle_pairs = g:toggle_pairs
+else
+    let s:toggle_pairs = {}
+endif
 
+"--------------------------------------------------
 " some Helper functions {{{
 function! s:Toggle_changeChar(string, pos, char)
   return strpart(a:string, 0, a:pos) . a:char . strpart(a:string, a:pos+1)
@@ -91,9 +122,27 @@ endfunction
 function! s:Toggle_changeString(string, beginPos, endPos, newString)
   return strpart(a:string, 0, a:beginPos) . a:newString . strpart(a:string, a:endPos+1)
 endfunction
+
+" Return the word before the cursor, uses spaces to delimitate
+" Rem : <cword> is the word under or after the cursor
+" copy GetCurrentWord() from http://www.vim.org/scripts/script.php?script_id=143
+function! s:Toggle_getCurrentWord()
+  let c = col('.')
+  let l = line('.')
+  let ll = getline(l)
+  let ll1 = strpart(ll,0,c)
+  let ll1 = matchstr(ll1,'\S*$')
+  if strlen(ll1) == 0
+    return ll1
+  else
+    let ll2 = strpart(ll,c,strlen(ll)-c+1)
+    let ll2 = strpart(ll2,0,match(ll2,'$\|\s'))
+    return ll1.ll2
+  endif
+endfunction
 " }}}
 
-function! Toggle() "{{{
+function! s:Toggle() "{{{
     " save values which we have to change temporarily:
     let s:lineNo = line(".")
     let s:columnNo = col(".")
@@ -202,7 +251,7 @@ function! Toggle() "{{{
     if (s:toggleDone == 0)
         let s:wordUnderCursor_tmp = ''
 "                 
-        let s:wordUnderCursor = expand("<cword>")
+        let s:wordUnderCursor = s:Toggle_getCurrentWord()
         if (s:wordUnderCursor ==? "true")
             let s:wordUnderCursor_tmp = "false"
             let s:toggleDone = 1
@@ -217,28 +266,40 @@ function! Toggle() "{{{
             let s:wordUnderCursor_tmp = "on"
             let s:toggleDone = 1
 
-        elseif (s:wordUnderCursor ==? "public")
-            let s:wordUnderCursor_tmp = "protected"
-            let s:toggleDone = 1
-        elseif (s:wordUnderCursor ==? "protected")
-            let s:wordUnderCursor_tmp = "private"
-            let s:toggleDone = 1
-        elseif (s:wordUnderCursor ==? "private")
-            let s:wordUnderCursor_tmp = "public"
-            let s:toggleDone = 1
-
         elseif (s:wordUnderCursor ==? "yes")
             let s:wordUnderCursor_tmp = "no"
             let s:toggleDone = 1
         elseif (s:wordUnderCursor ==? "no")
             let s:wordUnderCursor_tmp = "yes"
             let s:toggleDone = 1
+
         elseif (s:wordUnderCursor ==? "define")
             let s:wordUnderCursor_tmp = "undef"
             let s:toggleDone = 1
         elseif (s:wordUnderCursor ==? "undef")
             let s:wordUnderCursor_tmp = "define"
             let s:toggleDone = 1
+
+        elseif (s:wordUnderCursor ==? "public")
+            let s:wordUnderCursor_tmp = "private"
+            let s:toggleDone = 1
+        elseif (s:wordUnderCursor ==? "private")
+            let s:wordUnderCursor_tmp = "protected"
+            let s:toggleDone = 1
+        elseif (s:wordUnderCursor ==? "protected")
+            let s:wordUnderCursor_tmp = "public"
+            let s:toggleDone = 1
+
+        else
+            " custom pairs
+            for l:k in keys(s:toggle_pairs)
+                if (s:wordUnderCursor ==? l:k)
+                    let s:wordUnderCursor_tmp = s:toggle_pairs[l:k]
+                    let s:toggleDone = 1
+                    break
+                endif
+            endfor
+
         endif
 
          " preserve case (provided by Jan Christoph Ebersbach)

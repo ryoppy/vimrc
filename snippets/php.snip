@@ -1,0 +1,29 @@
+snippet strlen
+abbr 文字列の長さを得る
+  strlen(${1:$string})
+
+snippet mb_substr
+abbr 文字列の一部を得る
+  mb_substr(${1:$str}, ${2:$start}, ${3:$length}, ${4:$encoding})
+
+snippet mb_strpos
+abbr 文字列の中に指定した文字列が最初に現れる位置を見つける
+  mb_strpos(${1:$haystack}, ${2:$needle}, ${3:$offset}, ${4:$encoding})
+
+snippet strpos
+abbr 文字列内の部分文字列が最初に現れる場所を見つける
+  strpos(${1:$haystack}, ${2:$needle}, ${3:$offset})
+
+snippet phpe
+abbr php echo
+  <?= ${1:$value}; ?>
+
+snippet php
+abbr php start
+  <?php
+  
+
+snippet d
+abbr var_dump
+  var_dump(${1:value});
+  
