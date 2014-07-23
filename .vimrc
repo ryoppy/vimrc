@@ -11,6 +11,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Plugins
 NeoBundle 'Shougo/unite.vim'      " Filer
+NeoBundle 'sgur/unite-git_grep'   " Git grep
 NeoBundle 'Shougo/neomru.vim'     " dep:unite
 NeoBundle 'Shougo/neocomplete'    " Complement
 NeoBundle 'Shougo/neosnippet'     " Snippet
@@ -248,18 +249,15 @@ set smartindent
 highlight zenkakuda ctermbg=7
 match zenkakuda /　/
 
-" \pで貼付け
-inoremap <Leader>p <ESC>pi
-
 " 移動をラクに
 map 1k 10k
 map 1j 10j
-map 1hj 10h
+map 1h 10h
 map 1l 10l
 
 map 2k 20k
 map 2j 20j
-map 2hj 20h
+map 2h 20h
 map 2l 20l
 
 " insert mode での移動
@@ -275,6 +273,11 @@ nnoremap <C-S> :w<CR>
 inoremap <C-S> <ESC>:w<CR>
 nnoremap <C-Q> <ESC>:q<CR>
 inoremap <C-Q> <ESC>:q<CR>
+
+" \pで貼付け
+inoremap <Leader>p <ESC>pi
+" Ctrl+pでpasteモード
+set pastetoggle=<C-p>
 
 "改行コードの自動認識
 set fileformats=unix,dos,mac
