@@ -25,6 +25,7 @@ nnoremap <leader>gc :Gcommit -a<CR>
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gr :Gread<CR>
 
+
 "--------------------------------------------------------------------
 " vim-toggle
 "--------------------------------------------------------------------
@@ -38,9 +39,9 @@ vmap <C-G> <ESC>:call Toggle()<CR>
 "--------------------------------------------------------------------
 let g:neosnippet#snippets_directory = '~/.vim/snippets'
 " Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+imap <C-x>     <Plug>(neosnippet_expand_or_jump)
+smap <C-x>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-x>     <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
