@@ -1,6 +1,4 @@
 "--------------------------------------------------------------------
-" vim-neobundle
-"--------------------------------------------------------------------
 if has('vim_starting')
   set nocompatible
   set runtimepath+=~/.vim/bundle/neobundle.vim/
@@ -46,6 +44,15 @@ function! MyFugitive()
   return exists('*fugitive#head') ? fugitive#head() : ''
 endfunction
 
+
+"--------------------------------------------------------------------
+" vim-fugitive
+"--------------------------------------------------------------------
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>ga :Gwrite<CR>
+nnoremap <leader>gc :Gcommit -a<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gr :Gread<CR>
 
 "--------------------------------------------------------------------
 " vim-toggle
