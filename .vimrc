@@ -1,4 +1,6 @@
 "--------------------------------------------------------------------
+" vim-neobundle
+"--------------------------------------------------------------------
 if has('vim_starting')
   set nocompatible
   set runtimepath+=~/.vim/bundle/neobundle.vim/
