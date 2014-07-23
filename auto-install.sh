@@ -15,11 +15,11 @@ cd ~/.vim
 # Get Vimrc
 git clone git://github.com/ryoppy/vimrc.git .
 
-# Get Submodule
-git submodule update --init
+# Get Neobundle
+git clone git@github.com:Shougo/neobundle.vim.git bundle/neobundle.vim
 
 # NeoBundle
-
+yes | vim +NeoBundleInstall +qall
 
 # Set .vimrc
 ln -sf ~/.vim/.vimrc ~/
