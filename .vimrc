@@ -1,84 +1,41 @@
 "--------------------------------------------------------------------
+" vim-neobundle
+"--------------------------------------------------------------------
+if has('vim_starting')
+  set nocompatible
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+call neobundle#begin(expand('~/.vim/bundle/'))
 
-"--------------------------------------------------------------------
-"#|----- common -----
-"#|Ctrl+a 数字インクリメント
-"#|Ctrl+x 数字デクリメント
-"
-"Ctrl-w-+ : ウインド拡大
-"
-"#|
-"#|----- mark -----
-"#|ma     aマークを付ける
-"#|`a     aマークに移動
-"#|:marks 登録したマーク一覧
-"#|
-"#|----- vim-zencoding -----
-"#|div[Ctrl+y,]     <div></div>
-"#|div選択[Ctrl+y,] <div></div>
-"#|
-"#|----- vim-align -----
-"#|\t=   =で整列
-"#|\acom コメントの整列
-"#|\tsp  空白で分割して均等に整列
-"#|\su   sudo
-"
-"--------------------------------------------------------------------
-" よく使う<leader>
-"--------------------------------------------------------------------
-"map <leader>su :e sudo:%<CR>
-"nmap <leader>crv :VCSRevert<CR>
-"nmap <leader>cb :VCSBlame<CR>
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" Plugins
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neomru.vim'     " uniteでhistory開くのに必要
+NeoBundle 'Shougo/neocomplete'    " 補完
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Align'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'taku-o/vim-toggle'
+NeoBundle 'itchyny/lightline.vim' " Statusバーを見やすく
+NeoBundle 'tpope/vim-fugitive'    " Git
+" >Languages
+NeoBundle 'vim-coffee-script'
+NeoBundle 'vim-stylus'
+NeoBundle 'vim-scala'
+
+call neobundle#end()
+filetype plugin indent on
+NeoBundleCheck
 
 
 "--------------------------------------------------------------------
-" ショートカット
+" vim-lightline
 "--------------------------------------------------------------------
-" Visual選択
-map v{ vi{
-map v( vi(
-map v' vi'
-map v" vi"
-
-":qをCtrl+qでできるように
-map <C-Q> <ESC>:q<CR>
-imap <C-Q> <ESC>:q<CR>
-
-set backupskip=/tmp/*,/private/tmp/*
-
-"--------------------------------------------------------------------
-" TODO List
-"--------------------------------------------------------------------
-noremap <Leader>to :noautocmd vimgrep /TODO/j **/*.rb **/*.js **/*.m **/*.m<CR>:cw<CR>
-
-
-"--------------------------------------------------------------------
-" vim-pathogen
-"--------------------------------------------------------------------
-call pathogen#infect()
-
-
-"--------------------------------------------------------------------
-" vim-sudo
-"--------------------------------------------------------------------
-map <leader>su :e sudo:%<CR>
-
-
-"--------------------------------------------------------------------
-" vim-memolist
-" https://github.com/glidenote/memolist.vim
-"--------------------------------------------------------------------
-let g:memolist_path = "~/note"
-map <Leader>mn  :MemoNew<CR>
-map <Leader>ml  :MemoList<CR>
-map <Leader>mg  :MemoGrep<CR>
-
-
-"--------------------------------------------------------------------
-" vim-snipmate
-"--------------------------------------------------------------------
-let g:snips_author = 'ryohongo'
-let g:snips_copy = 'CopyRight (c)'
+" export TERM=xterm-256color
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ }
 
 
 "--------------------------------------------------------------------
@@ -88,122 +45,112 @@ imap <C-G> <C-O>:call Toggle()<CR>
 nmap <C-G> :call Toggle()<CR>
 vmap <C-G> <ESC>:call Toggle()<CR>
 
+let g:neosnippet#snippets_directory = '~/.vim/snippets' 
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 
 "---------------------------------------------------------------------
-" vim-neocomplcache
+" vim-neocomplte
 "---------------------------------------------------------------------
-"enable
-let g:neocomplcache_enable_at_startup = 1
-"smarrt case有効化。 大文字が入力されるまで大文字小文字の区別を無視する
-let g:neocomplcache_enable_smart_case = 1
-"camle caseを有効化。大文字を区切りとしたワイルドカードのように振る舞う
-let g:neocomplcache_enable_camel_case_completion = 1
-"_(アンダーバー)区切りの補完を有効化
-let g:neocomplcache_enable_underbar_completion = 1
-"シンタックスをキャッシュするときの最小文字長を3に
-let g:neocomplcache_min_syntax_length = 3
-"neocomplcacheを自動的にロックするバッファ名のパターン
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-"補完候補の一番先頭を選択状態にする(AutoComplPopと似た動作)
-let g:neocomplcache_enable_auto_select = 1
+let g:acp_enableAtStartup = 0
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 2
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
-let g:neocomplcache_dictionary_filetype_lists = {
-  \ 'default'    : '',
-  \ 'php'        : $HOME . '/.vim/dict/php.dict',
-  \ 'javascript' : $HOME . '/.vim/dict/javascript.dict',
-  \ }
-  
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#Complete
-autocmd FileType ruby set omnifunc=rubycomplete#Complete
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : ''
+    \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+  let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 
-"-------------------------------------------------------------------------------
-" vim-unite
-"-------------------------------------------------------------------------------
+"---------------------------------------------------------------------
+" vim-unite:
+"---------------------------------------------------------------------
+nnoremap    [unite]   <Nop>
+nmap    <leader>u [unite]
 
-""" unite.vim
-" 入力モードで開始する
-let g:unite_enable_start_insert=1
-" バッファ一覧
-nnoremap <silent> <leader>ub :<C-u>Unite buffer<CR>
 " ファイル一覧
-nnoremap <silent> <leader>uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-" レジスタ一覧
-nnoremap <silent> <leader>ur :<C-u>Unite -buffer-name=register register<CR>
-" 最近使用したファ ルのヒストリー
-nnoremap <silent> <leader>uh :<C-u>Unite file_mru<CR>
-" 常用セット
-nnoremap <silent> <leader>uu :<C-u>Unite buffer file_mru<CR>
-" 全部乗せ
-nnoremap <silent> <leader>ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+nnoremap <silent> [unite]f  :<C-u>UniteWithCurrentDir -buffer-name=files file file/new<CR>
+" 最近使用したファイル一覧
+nnoremap <silent> [unite]h  :<C-u>Unite file_mru<CR>
+" snippet一覧
+nnoremap <silent> [unite]s  :<C-u>Unite snippet<CR>
 
-" ウィンドウを分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-" ウィンドウを縦に分割して開く
-call unite#set_substitute_pattern('file', '\$\w\+', '\=eval(submatch(0))', 200)
-au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-" ESCキーを2回押すと終了する
-au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
-au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
+" ショートカット
+map <Space>f :tabedit<CR>[unite]f
+map <Space>h :tabedit<CR>[unite]h
+map <Space>s :tabedit<CR>[unite]s
 
-" 様々なショートカット
-call unite#set_substitute_pattern('file', '\$\w\+', '\=eval(submatch(0))', 200)
-call unite#set_substitute_pattern('file', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/"', 2)
-call unite#set_substitute_pattern('file', '^@', '\=getcwd()."/*"', 1)
-call unite#set_substitute_pattern('file', '^;r', '\=$VIMRUNTIME."/"')
-call unite#set_substitute_pattern('file', '^\~', escape($HOME, '\'), -2)
-call unite#set_substitute_pattern('file', '\\\@<! ', '\\ ', -20)
-call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
-if has('win32') || has('win64')
- call unite#set_substitute_pattern('file', '^;p', 'C:/Program Files/')
- call unite#set_substitute_pattern('file', '^;v', '~/vimfiles/')
-else
- call unite#set_substitute_pattern('file', '^;v', '~/.vim/')
-endif
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings()"{{{
+  " Overwrite settings.
 
-" yank履歴を\gyで扱える
-let g:unite_source_history_yank_enable =1  "history/yankの有効化
-nnoremap <silent>uy :<C-u>Unite history/yank<CR>
+  " ESCキーを2回押すと終了する
+  nmap <buffer> <ESC>      <Plug>(unite_exit)
+  nmap <buffer> <ESC><ESC> <Plug>(unite_exit)
+  imap <buffer> jj      <Plug>(unite_insert_leave)
 
-" /Volumeが無視されていたので追記
-let g:unite_source_file_mru_ignore_pattern = '\~$\|\.\%(o\|exe\|dll\|bak\|sw[po]\)$\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\)'
+  nnoremap <silent><buffer> <C-k> :<C-u>call unite#mappings#do_action('preview')<CR>
+  imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
+endfunction"}}}
 
-" より便利に
-nmap <SPACE>h <SPACE>t<leader>uh
-nmap <SPACE>f <SPACE>t<leader>uf
-
-" insert modeで開始
-let g:unite_enable_start_insert = 1
-
-" 大文字小文字を区別しない
-let g:unite_enable_ignore_case = 1
-let g:unite_enable_smart_case = 1
-
-vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
-
-" grep検索
-nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-
-" カーソル位置の単語をgrep検索
-nnoremap <silent> ,cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
-
-" grep検索結果の再呼出
-nnoremap <silent> ,r  :<C-u>UniteResume search-buffer<CR>
-
-" unite grep に ag(The Silver Searcher) を使う
-if executable('ag')
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-  let g:unite_source_grep_recursive_opt = '-R'
-endif
+call unite#custom#profile('default', 'context', {
+      \  'start_insert': 1,
+      \  'ignore_case': 1,
+      \  'smart_case': 1
+      \})
 
 
 "---------------------------------------------------------------------
@@ -230,116 +177,17 @@ set showcmd
 " 現在のモードを表示
 set showmode
 
-" Ev/Rvでvimrcの編集と反映
-command! Ev edit $MYVIMRC   
-command! Rv source $MYVIMRC 
+"共有のクリップボードを使用する
+set clipboard=unnamed,autoselect
 
-" pathogenでftdetectなどをloadさせるために一度ファイルタイプ判定をoff
-filetype off
-" pathogen.vimによってbundle配下のpluginをpathに加える
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
-set helpfile=$VIMRUNTIME/doc/help.txt
-" ファイルタイプ判定をon
-filetype plugin indent on
-
-" \pで貼付け
-inoremap <Leader>p <ESC>pi
-
-" 移動をラクに
-map 1k 10k
-map 1j 10j
-map 1hj 10h
-map 1l 10l
-
-map 2k 20k
-map 2j 20j
-map 2hj 20h
-map 2l 20l
-
-map <C-S> :w<CR>
-imap <C-S> <ESC>:w<CR>
-
-"改行コードの自動認識
-set fileformats=unix,dos,mac
-" □とか○の文字があってもカーソル位置がずれないようにする
-if exists('&ambiwidth')
-    set ambiwidth=double
-endif
-
-
-
-"-------------------------------------------------------------------------------
-" ステータスライン StatusLine
-"-------------------------------------------------------------------------------
-set laststatus=2 " 常にステータスラインを表示
+" 常にステータスラインを表示
+set laststatus=2
 
 "カーソルが何行目の何列目に置かれているかを表示する
 set ruler
 
-"ステータスラインに文字コードと改行文字を表示する
-if winwidth(0) >= 120
-  set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %F%=[%{GetB()}]\ %l,%c%V%8P
-else
-  set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %f%=[%{GetB()}]\ %l,%c%V%8P
-endif
-
-"入力モード時、ステータスラインのカラーを変更
-augroup InsertHook
-autocmd!
-autocmd InsertEnter * highlight StatusLine ctermfg=black ctermbg=118
-autocmd InsertLeave * highlight StatusLine ctermfg=black ctermbg=white
-augroup END
-
-function! GetB()
-  let c = matchstr(getline('.'), '.', col('.') - 1)
-  let c = iconv(c, &enc, &fenc)
-  return String2Hex(c)
-endfunction
-" help eval-examples
-" The function Nr2Hex() returns the Hex string of a number.
-func! Nr2Hex(nr)
-  let n = a:nr
-  let r = ""
-  while n
-    let r = '0123456789ABCDEF'[n % 16] . r
-    let n = n / 16
-  endwhile
-  return r
-endfunc
-" The function String2Hex() converts each character in a string to a two
-" character Hex string.
-func! String2Hex(str)
-  let out = ''
-  let ix = 0
-  while ix < strlen(a:str)
-    let out = out . Nr2Hex(char2nr(a:str[ix]))
-    let ix = ix + 1
-  endwhile
-  return out
-endfunc
-
-" 高速ターミナル接続を行う
-set ttyfast
-
-
-"###############################
-
-" カーソル行をハイライト
-"set cursorline
-":hi clear CursorLine
-":hi CursorLine gui=underline
-"highlight CursorLine ctermbg=grey
-
-" カレントウィンドウにのみ罫線を引く
-augroup cch
-  autocmd! cch
-  autocmd WinLeave * set nocursorline
-  autocmd WinEnter,BufRead * set cursorline
-augroup END
-
-"新しい行のインデントを現在行と同じにする
-set autoindent
+"バックスペースでindentを無視 & 改行を越えてバックスペースを許可
+set backspace=indent,eol,start
 
 "インクリメンタルサーチを行う
 set incsearch
@@ -370,136 +218,38 @@ set smartindent
 highlight zenkakuda ctermbg=7
 match zenkakuda /　/
 
-"バックスペースでindentを無視 & 改行を越えてバックスペースを許可
-set backspace=indent,eol,start
+" \pで貼付け
+inoremap <Leader>p <ESC>pi
 
-"入力補完時に、辞書ファイルも読み込む
-set complete=.,w,b,u,t,i,k
+" 移動をラクに
+map 1k 10k
+map 1j 10j
+map 1hj 10h
+map 1l 10l
 
-"共有のクリップボードを使用する
-set clipboard=unnamed,autoselect
+map 2k 20k
+map 2j 20j
+map 2hj 20h
+map 2l 20l
 
-" IMEに応じて色を変える
-hi CursorIM  guifg=black  guibg=red  gui=NONE  ctermfg=black  ctermbg=white  cterm=reverse
+" Ctrl+sで保存, Ctrl+qで閉じ
+nnoremap <C-S> :w<CR>
+inoremap <C-S> <ESC>:w<CR>
+nnoremap <C-Q> <ESC>:q<CR>
+inoremap <C-Q> <ESC>:q<CR>
 
-"ペーストモードのON/OFF
-set pastetoggle=<F5>
+"改行コードの自動認識
+set fileformats=unix,dos,mac
+" □とか○の文字があってもカーソル位置がずれないようにする
+if exists('&ambiwidth')
+    set ambiwidth=double
+endif
 
-
-"-------------------------------------------------------------------------------
-" 移動設定 Move
-"-------------------------------------------------------------------------------
-
-" CTRL-hjklでウィンドウ移動
-nnoremap <C-j> ;<C-w>j
-nnoremap <C-k> ;<C-k>j
-nnoremap <C-l> ;<C-l>j
-nnoremap <C-h> ;<C-h>j
-
-" insert mode での移動
-imap  <C-e> <END>
-imap  <C-a> <HOME>
-" インサートモードでもhjklで移動（Ctrl押すけどね）
-imap <C-j> <Down>
-imap <C-k> <Up>
-imap <C-h> <Left>
-imap <C-l> <Right>
-
-" 行末の不要な空白を削除
-function! RTrim()
-    let s:cursor = getpos(".")
-    %s/\s\+$//e
-    call setpos(".", s:cursor)
-endfunction
-autocmd BufWritePre *.php,*.rb,*.js,*.bat call RTrim()
-
-function! IfSmartyFileType()
-	let s:path = expand("%:p")
-	if stridx(s:path, "template") != -1 || stridx(s:path, "tpl") != -1
-		set ft=smarty
-	endif
-endfunction
-autocmd BufRead,BufNewFile *.html call IfSmartyFileType()
-
- 
 "-------------------------------------------------------------------------------
 " タブ設定
 "-------------------------------------------------------------------------------
-" ショートカット
 nnoremap <SPACE>t :tabedit<Return>
-"nnoremap <SPACE>w :tabclose<Return>
 nnoremap <F2>     :tabn<Return>
 nnoremap <F1>     :tabprevious<Return>
-nnoremap <SPACE>q :tabn<Return>
-nnoremap <SPACE>w :tabprevious<Return>
 
 set showtabline=4
-
-" タブ色設定
-hi TabLine     term=reverse cterm=reverse ctermfg=black ctermbg=white
-hi TabLineSel  term=bold cterm=bold ctermfg=5
-hi TabLineFill term=reverse cterm=reverse ctermfg=black ctermbg=white
-
-" 個別のタブの表示設定をします
-function! GuiTabLabel()
-  " タブで表示する文字列の初期化をします
-  let l:label = ''
-
-  " タブに含まれるバッファ(ウィンドウ)についての情報をとっておきます。
-  let l:bufnrlist = tabpagebuflist(v:lnum)
-
-  " 表示文字列にバッファ名を追加します
-  " パスを全部表示させると長いのでファイル名だけを使います 詳しくは help fnamemodify()
-  let l:bufname = fnamemodify(bufname(l:bufnrlist[tabpagewinnr(v:lnum) - 1]), ':t')
-  " バッファ名がなければ No title としておきます。ここではマルチバイト文字を使わないほうが無難です
-  let l:label .= l:bufname == '' ? 'No title' : l:bufname
-
-  " タブ内にウィンドウが複数あるときにはその数を追加します(デフォルトで一応あるので)
-  let l:wincount = tabpagewinnr(v:lnum, '$')
-  if l:wincount > 1
-    let l:label .= '[' . l:wincount . ']'
-  endif
-
-  " このタブページに変更のあるバッファがるときには '[+]' を追加します(デフォルトで一応あるので)
-  for bufnr in l:bufnrlist
-    if getbufvar(bufnr, "&modified")
-      let l:label .= '[+]'
-      break
-    endif
-  endfor
-
-  " 表示文字列を返します
-  return l:label
-endfunction
-
-" guitablabel に上の関数を設定します
-" その表示の前に %N というところでタブ番号を表示させています
-set guitablabel=%N:\ %{GuiTabLabel()}
-
-
-"--------------------------------------------------------------------
-" js lint
-"--------------------------------------------------------------------
-if match(system("uname"),'Darwin') != -1
-    let $JS_CMD='node'
-endif
-
-
-"--------------------------------------------------------------------
-" /js/test.jsをgfで開けるように
-"--------------------------------------------------------------------
-autocmd FileType php,html,javascript,css,javascript.titanium setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=;/
-
-
-"--------------------------------------------------------------------
-" 編集中のをリネームできる
-"--------------------------------------------------------------------
-command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)
-
-
-"--------------------------------------------------------------------
-" それぞれの環境ごとの設定 (git管理外)
-"--------------------------------------------------------------------
-if filereadable(expand('~/.vimrc.local'))
-	source ~/.vimrc.local
-endif
