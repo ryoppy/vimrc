@@ -56,6 +56,8 @@ nnoremap <leader>ga :Gwrite<CR>
 nnoremap <leader>gc :Gcommit -a<CR>
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gr :Gread<CR>
+nnoremap <leader>gp :Gpush<CR>
+
 
 "--------------------------------------------------------------------
 " vim-toggle
