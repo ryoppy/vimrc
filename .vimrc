@@ -34,14 +34,14 @@ NeoBundleCheck
 "--------------------------------------------------------------------
 " export TERM=xterm-256color
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [['mode', 'paste'], ['fugitive', 'readonly', 'filename', 'modified']]
-      \ },
-      \ 'component_function': {
-      \   'fugitive': 'MyFugitive'
-      \ }
-      \ }
+\   'colorscheme': 'wombat',
+\   'active': {
+\     'left': [['mode', 'paste'], ['fugitive', 'readonly', 'filename', 'modified']]
+\   },
+\   'component_function': {
+\     'fugitive': 'MyFugitive'
+\   }
+\ }
 function! MyFugitive()
   return exists('*fugitive#head') ? fugitive#head() : ''
 endfunction
@@ -168,10 +168,10 @@ function! s:unite_my_settings()"{{{
 endfunction"}}}
 
 call unite#custom#profile('default', 'context', {
-      \  'start_insert': 1,
-      \  'ignore_case': 1,
-      \  'smart_case': 1
-      \})
+\  'start_insert': 1,
+\  'ignore_case': 1,
+\  'smart_case': 1
+\})
 
 
 "---------------------------------------------------------------------
