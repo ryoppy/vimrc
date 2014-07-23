@@ -13,7 +13,9 @@ vim 7.4 +lua
 git clone http://luajit.org/git/luajit-2.0.git luajit 
 make
 sudo make install
+```
 
+```
 # vim install
 wget ftp://ftp.vim.org/pub/vim/unix/vim-7.4.tar.bz2
 ./configure --enable-multibyte --with-features=huge --disable-selinux \
