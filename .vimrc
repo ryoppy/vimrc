@@ -22,6 +22,7 @@ NeoBundle 'tpope/vim-fugitive'    " Git
 " >Languages
 NeoBundle 'vim-coffee-script'
 NeoBundle 'vim-stylus'
+NeoBundle 'vim-scala'
 
 call neobundle#end()
 filetype plugin indent on
