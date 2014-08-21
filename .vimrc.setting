@@ -22,6 +22,9 @@ set showcmd
 " 現在のモードを表示
 set showmode
 
+" 行を強調表示
+set cursorline
+
 "共有のクリップボードを使用する
 set clipboard=unnamed,autoselect
 
@@ -86,10 +89,10 @@ imap <C-h> <Left>
 imap <C-l> <Right>
 
 " Ctrl+sで保存, Ctrl+qで閉じ
-nnoremap <C-S> :w<CR>
-inoremap <C-S> <ESC>:w<CR>
-nnoremap <C-Q> <ESC>:q<CR>
-inoremap <C-Q> <ESC>:q<CR>
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <ESC>:w<CR>
+nnoremap <C-q> <ESC>:q<CR>
+inoremap <C-q> <ESC>:q<CR>
 
 "改行コードの自動認識
 set fileformats=unix,dos,mac
