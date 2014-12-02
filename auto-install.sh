@@ -16,7 +16,7 @@ cd ~/.vim
 git clone git://github.com/ryoppy/vimrc.git .
 
 # Get Neobundle
-git clone git@github.com:Shougo/neobundle.vim.git bundle/neobundle.vim
+git clone https://github.com/Shougo/neobundle.vim.git bundle/neobundle.vim
 
 # NeoBundle
 yes | vim +NeoBundleInstall +qall
