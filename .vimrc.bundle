@@ -16,7 +16,7 @@ NeoBundle 'Shougo/neomru.vim'     " dep:unite
 NeoBundle 'Shougo/neocomplete'    " Complement
 NeoBundle 'Shougo/neosnippet'     " Snippet
 NeoBundle 'Shougo/vimproc.vim', {'build': {'others': 'make'}} " dep:unite grep, async, etc..
-NeoBundle 'Align'
+NeoBundle 'junegunn/vim-easy-align'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'taku-o/vim-toggle'     " turn true/false, ++, --
 NeoBundle 'itchyny/lightline.vim' " Powerful status bar
