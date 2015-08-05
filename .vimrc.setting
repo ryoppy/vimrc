@@ -104,12 +104,20 @@ endif
 " 行末のスペース削除
 autocmd BufWritePre * :%s/\s\+$//e
 
+" paste mode 切り替え
+set pastetoggle=<leader>p
+
+" reload
+nnoremap <leader>r :so %<CR>
+
 "-------------------------------------------------------------------------------
 " タブ設定
 "-------------------------------------------------------------------------------
 nnoremap <SPACE>t :tabedit<Return>
 nnoremap <F2>     :tabn<Return>
 nnoremap <F1>     :tabprevious<Return>
+nnoremap <SPACE>1     :tabn<Return>
+nnoremap <SPACE>2     :tabprevious<Return>
 
 set showtabline=4
 
