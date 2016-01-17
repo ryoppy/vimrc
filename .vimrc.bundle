@@ -15,6 +15,7 @@ NeoBundle 'sgur/unite-git_grep'   " Git grep
 NeoBundle 'Shougo/neomru.vim'     " dep:unite
 NeoBundle 'Shougo/neocomplete'    " Complement
 NeoBundle 'Shougo/neosnippet'     " Snippet
+NeoBundle 'Shougo/neosnippet-snippets'     " Snippet
 NeoBundle 'Shougo/vimproc.vim', {'build': {'others': 'make'}} " dep:unite grep, async, etc..
 NeoBundle 'junegunn/vim-easy-align'
 NeoBundle 'tpope/vim-surround'
