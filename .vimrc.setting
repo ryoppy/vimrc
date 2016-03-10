@@ -121,8 +121,8 @@ endif
 nnoremap <SPACE>t :tabedit<Return>
 nnoremap <F2>     :tabn<Return>
 nnoremap <F1>     :tabprevious<Return>
-nnoremap <SPACE>1     :tabn<Return>
-nnoremap <SPACE>2     :tabprevious<Return>
+nnoremap <SPACE>2     :tabn<Return>
+nnoremap <SPACE>1     :tabprevious<Return>
 
 set showtabline=4
 
