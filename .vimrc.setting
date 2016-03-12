@@ -124,8 +124,12 @@ nnoremap <C-a><C-q> :quitall<CR>
 nnoremap <SPACE>t :tabedit<Return>
 nnoremap <F2>     :tabn<Return>
 nnoremap <F1>     :tabprevious<Return>
-nnoremap <SPACE>2     :tabn<Return>
-nnoremap <SPACE>1     :tabprevious<Return>
+nnoremap <SPACE>1 :tabmove0<CR>
+nnoremap <SPACE>2 :tabmove1<CR>
+nnoremap <SPACE>3 :tabmove2<CR>
+nnoremap <SPACE>4 :tabmove4<CR>
+nnoremap <SPACE>5 :tabmove6<CR>
+nnoremap <SPACE>7 :tabmove7<CR>
 
 set showtabline=4
 
