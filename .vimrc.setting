@@ -108,7 +108,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 set pastetoggle=<leader>p
 
 " reload
-nnoremap <leader>r :so %<CR>
+nnoremap <leader> :so %<CR>
 
 " 前回開いたときのカーソルの位置からスタート
 if has("autocmd")
@@ -124,12 +124,9 @@ nnoremap <C-a><C-q> :quitall<CR>
 nnoremap <SPACE>t :tabedit<Return>
 nnoremap <F2>     :tabn<Return>
 nnoremap <F1>     :tabprevious<Return>
-nnoremap <SPACE>1 :tabmove0<CR>
-nnoremap <SPACE>2 :tabmove1<CR>
-nnoremap <SPACE>3 :tabmove2<CR>
-nnoremap <SPACE>4 :tabmove4<CR>
-nnoremap <SPACE>5 :tabmove6<CR>
-nnoremap <SPACE>7 :tabmove7<CR>
+for i in range(1, 9)
+  execute 'nnoremap <SPACE>' . i . ' ' . i . 'gt'
+endfor
 
 set showtabline=4
 
