@@ -22,10 +22,12 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'taku-o/vim-toggle'     " turn true/false, ++, --
 NeoBundle 'itchyny/lightline.vim' " Powerful status bar
 NeoBundle 'tpope/vim-fugitive'    " Git
+NeoBundle 'xolox/vim-session', {'depends' : 'xolox/vim-misc',}
+
 " >Languages
 NeoBundle 'vim-coffee-script'
 NeoBundle 'vim-stylus'
-NeoBundle 'derekwyatt/vim-scala'
+"NeoBundle 'derekwyatt/vim-scala'
 
 call neobundle#end()
 filetype plugin indent on
