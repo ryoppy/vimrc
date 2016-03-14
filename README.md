@@ -11,13 +11,17 @@ vim 7.4 +lua
 ```
 # Lua jit install.
 git clone http://luajit.org/git/luajit-2.0.git luajit 
+cd luajit
 make
 sudo make install
 ```
 
 ```
 # vim install
+sudo yum install ncurses-devel
 wget ftp://ftp.vim.org/pub/vim/unix/vim-7.4.tar.bz2
+tar xfp ./vim-7.4.tar.bz2
+cd ./vim74
 ./configure --enable-multibyte --with-features=huge --disable-selinux \
         --prefix=/usr/local \
         --enable-luainterp=yes --with-luajit --with-lua-prefix=/usr/local 
