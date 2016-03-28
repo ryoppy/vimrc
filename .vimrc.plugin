@@ -125,7 +125,7 @@ nnoremap <silent> [unite]h  :<C-u>Unite file_mru<CR>
 " snippet一覧
 nnoremap <silent> [unite]s  :<C-u>Unite snippet<CR>
 " ファイル名検索
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
+"call unite#filters#matcher_default#use(['matcher_fuzzy'])
 nnoremap <silent> [unite]d  :<C-u>Unite file_rec/git<CR>
 " grep
 nnoremap <silent> [unite]g  :<C-u>Unite grep/git<CR>
