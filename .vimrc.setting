@@ -106,6 +106,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 " paste mode 切り替え
 set pastetoggle=<leader>p
+set pastetoggle=<c-p>
 
 " reload
 nnoremap <leader> :so %<CR>
@@ -117,6 +118,15 @@ endif
 
 " vim終了
 nnoremap <C-a><C-q> :quitall<CR>
+
+" 行番号の切り替え
+nnoremap <C-n> :<C-u>setlocal number!<CR>
+
+" ファイル名リネーム
+command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
+
+" スクロール読み込み数
+set synmaxcol=200
 
 "-------------------------------------------------------------------------------
 " タブ設定

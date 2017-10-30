@@ -23,6 +23,10 @@ NeoBundle 'taku-o/vim-toggle'     " turn true/false, ++, --
 NeoBundle 'itchyny/lightline.vim' " Powerful status bar
 NeoBundle 'tpope/vim-fugitive'    " Git
 NeoBundle 'xolox/vim-session', {'depends' : 'xolox/vim-misc',}
+NeoBundle 'derekwyatt/vim-scala',
+NeoBundle 'neovimhaskell/haskell-vim'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'AndrewRadev/switch.vim'
 
 " >Languages
 NeoBundle 'vim-coffee-script'
